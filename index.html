@@ -62,6 +62,75 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-lamdba表达式和-FunctionInterface" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/17/lamdba表达式和-FunctionInterface/" class="article-date">
+  <time datetime="2018-08-17T07:44:22.000Z" itemprop="datePublished">2018-08-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/17/lamdba表达式和-FunctionInterface/">lamdba表达式和@FunctionInterface</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="函数式接口"><a href="#函数式接口" class="headerlink" title="函数式接口"></a>函数式接口</h2><p>java8推出的特性lamdba表达式，lambda表达式可以使代码更简洁，列化和并行支持使用lambda的另外一个好处是我们可以使用Java的Stream API的串行和并行操作。<br>函数式接口其实本质上还是一个接口，但是它是一种特殊的接口：SAM类型的接口（Single Abstract Method）。定义了这种类型的接口，使得以其为参数的方法，可以在调用时，使用一个lambda表达式作为参数。加不加@FunctionalInterface对于接口是不是函数式接口没有影响，该注解知识提醒编译器去检查该接口是否仅包含一个抽象方法。加上该注解，当你写的接口不符合函数式接口定义的时候，编译器会报错。</p>
+<p>另外，函数式接口可以在其中定义：</p>
+<ul>
+<li>函数式接口里允许定义默认方法</li>
+<li>函数式接口里允许定义静态方法</li>
+<li>函数式接口里允许定义java.lang.Object里的public方法</li>
+<li>函数式接口里允许子接口继承多个父接口，但每个父接口中都只能存在一个抽象方法，且必须的相同的抽象方法</li>
+</ul>
+<p>如下是一个函数式接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">HelloWord</span> </span></span><br><span class="line"><span class="class">    </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">void</span> <span class="title">say</span><span class="params">(String message)</span></span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>之后可以使用lambda表达式来实现该接口的一个实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">HelloWord helloWord = message -&gt; System.out.println(<span class="string">"Hello "</span> + message);</span><br><span class="line">helloWord.say(<span class="string">"hello word"</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h2><p><a href="https://www.zhihu.com/people/sevenvidia/answers" target="_blank" rel="noopener">这里有一篇关于lambda表达式演化的写的不错的文章</a></p>
+<ul>
+<li>一个 Lambda 表达式可以有零个或多个参数</li>
+<li>参数的类型既可以明确声明，也可以根据上下文来推断。例如：(int a)与(a)效果相同</li>
+<li>所有参数需包含在圆括号内，参数之间用逗号相隔。例如：(a, b) 或 (int a, int b) 或 (String a, int b, float c)</li>
+<li>空圆括号代表参数集为空。例如：() -&gt; 42</li>
+<li>当只有一个参数，且其类型可推导时，圆括号（）可省略。例如：a -&gt; return a*a</li>
+<li>Lambda 表达式的主体可包含零条或多条语句</li>
+<li>如果 Lambda 表达式的主体只有一条语句，花括号{}可省略。匿名函数的返回类型与该主体表达式一致</li>
+<li>如果 Lambda 表达式的主体包含一条以上语句，则表达式必须包含在花括号{}中（形成代码块）。匿名函数的返回类型与代码块的返回类型一致，若没有返回则为空</li>
+</ul>
+<p>在没有lambda表达式之前，创建线程是这样的：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Runnable race1 = <span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"Hello world !"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;;</span><br><span class="line">        race1.run();</span><br></pre></td></tr></table></figure></p>
+<p>在使用了lambda表达式之后，可以这样常见线程<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Thread(() -&gt; System.out.println(<span class="string">"Hello world !"</span>)).start();</span><br></pre></td></tr></table></figure></p>
+<h2 id="lambda表达式和stream"><a href="#lambda表达式和stream" class="headerlink" title="lambda表达式和stream"></a>lambda表达式和stream</h2><p>Stream是 Java8新增加的类，用来补充集合类。<br>Stream的通用用法是创建stream-&gt;转换Stream-&gt;聚合</p>
+<p>流的特性：</p>
+<ul>
+<li>不存储数据。流是基于数据源的对象，它本身不存储数据元素，而是通过管道将数据源的元素传递给操作。</li>
+<li>函数式编程。流的操作不会修改数据源，例如filter不会将数据源中的数据删除。</li>
+<li>延迟操作。流的很多操作如filter,map等中间操作是延迟执行的，只有到终点操作才会将操作顺序执行。</li>
+<li>可以解绑。对于无限数量的流，有些操作是可以在有限的时间完成的，比如limit(n) 或 findFirst()，这些操作可是实现”短路”(Short-circuiting)，访问到有限的元素后就可以返回。</li>
+<li>纯消费。流的元素只能访问一次，类似Iterator，操作没有回头路，只有重新新建一个流</li>
+</ul>
+<h2 id="双冒号操作符"><a href="#双冒号操作符" class="headerlink" title="双冒号操作符"></a>双冒号操作符</h2><p>双冒号运算就是Java中的方法引用，格式为类名::方法名。注意是方法名，后面是没有括号的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/08/17/lamdba表达式和-FunctionInterface/" data-id="cjl4ra0zo0000k0setxd2iudz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-redis实现分布式锁" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/17/redis实现分布式锁/" class="article-date">
@@ -84,11 +153,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="为什么需要分布式锁"><a href="#为什么需要分布式锁" class="headerlink" title="为什么需要分布式锁"></a>为什么需要分布式锁</h2><p>某个客户端因为网络问题，用户没有收到成功返回，以为没有下单成功，再次发起请求。同样的订单可能会被下两次，这是不被允许的。为了保证http的幂等性，这个时候就需要加锁。在单节点服务器下，我们可以使用JVM实现的synchronized和jdk的Lock来实现。但是当应用涉及到多机，多进程共同完成时，就需要分布式锁来支持了。在RPC框架下，多个请求会被分发到不同的server上，那么这时候就需要一个全局锁来实现多个线程(不同的进程)之间的同步。<br>常见的分布式锁可以基于数据库，缓存和zookeeper来实现。分布式锁需要满足哪些要求：</p>
+<ul>
+<li>可以保证在分布式部署的应用集群中，同一个方法在同一时间只能被一台机器上的一个线程执行。</li>
+<li>这把锁要是一把可重入锁（避免死锁）。</li>
+<li>有高可用的获取锁和释放锁功能。</li>
+<li>获取锁和释放锁的性能要好。</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/17/redis实现分布式锁/" data-id="cjkxn30tc0003ogsenx1odrxp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/17/redis实现分布式锁/" data-id="cjl4ra0zs0001k0seoiffp3ij" class="article-share-link">Share</a>
       
       
     </footer>
@@ -124,7 +200,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/15/动态代理和AOP/" data-id="cjkxn30tb0002ogse0mukf06e" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/15/动态代理和AOP/" data-id="cjl4ra0zw0003k0sehzp9ktlw" class="article-share-link">Share</a>
       
       
     </footer>
@@ -161,11 +237,18 @@
 <ul>
 <li>非对称性加密过程<br>SSL协议基本过程是客户端向服务器端索要并验证公钥，双方协商生成”对话密钥”，双方采用”对话密钥”进行加密通信。索要并验证公钥，生成对话密钥被称为握手阶段。</li>
 </ul>
+<ol>
+<li>客户端发起HTTPS请求，访问服务器的443端口。</li>
+<li>服务器返回证书的公钥，其中还包含了一些信息，如证书的颁发机构，过期时间等。</li>
+<li>客户端解析证书这部分工作是由客户端的SSL/TLS来完成的，首先会验证公钥是否有效，比如颁发机构，过期时间等等，如果发现异常，则会弹出一个警示框，提示证书存在的问题。如果证书没有问题，那么就生成一个随机值。然后用证书（也就是公钥）对这个随机值进行加密。</li>
+<li>传送加密信息：这部分传送的是用证书加密后的随机值，目的是让服务端得到这个随机值，以后客户端和服务端的通信就可以通过这个随机值来进行加密解密了。</li>
+<li>服务端解密信息：服务端用私钥解密后，得到了客户端传过来的随机值，然后把内容通过该随机值进行对称加密，将信息和私钥通过某种算法混合在一起，这样除非知道私钥，不然无法获取内容，而正好客户端和服务端都知道这个私钥，所以只要加密算法够彪悍，私钥够复杂，数据就够安全。</li>
+<li>传输加密后的信息 这部分信息就是服务端用私钥加密后的信息，可以在客户端用随机值解密还原。</li>
+<li>客户端解密信息 客户端用之前生产的私钥解密服务端传过来的信息，于是获取了解密后的内容。整个过程第三方即使监听到了数据，也束手无策。</li>
+</ol>
 <h2 id="SSL证书和https的搭建"><a href="#SSL证书和https的搭建" class="headerlink" title="SSL证书和https的搭建"></a>SSL证书和https的搭建</h2><p>https协议是基于SSL协议的，SSL证书是数字证书的一种，遵守SSL协议，由受信任的数字证书颁发机构CA。自己其实也是可以制作SSL证书的。可以通过openssl命令生成证书。自己尝试签发一个免费证书，然后在需要使用证书的nginx配置文件的server节点里加入以下配置就可以了。</p>
 <p>首先执行如下命令生成一个key<br>openssl genrsa -des3 -out ssl.key 1024<br>然后他会要求你输入这个key文件的密码。不推荐输入。因为以后要给nginx使用。每次reload nginx配置时候都要你验证这个PAM密码的。<br>由于生成时候必须输入密码。你可以输入后再删掉。</p>
-<p>mv ssl.key xxx.key<br>openssl rsa -in xxx.key -out ssl.key<br>rm xxx.key<br>然后根据这个key文件生成证书请求文件<br>openssl req -new -key ssl.key -out ssl.csr<br>后面需要填写个人信息，看着填就可以了，有的不是必填的enter跳古就可以了。<br>最后根据这2个文件生成crt证书文件<br>openssl x509 -req -days 365 -in ssl.csr -signkey ssl.key -out ssl.crt</p>
-<p>在需要使用证书的nginx配置文件的server节点里加入以下配置就可以了。</p>
-<p>特别的：下面的location系列配置是为了申请阿里云盾的ssl证书，为了文件验证方式而配置的。是为了在指定url下，可以访问到指定的文件以供验证。自己签发的ssl证书是在浏览器上访问会显示不安全。</p>
+<p>mv ssl.key xxx.key<br>openssl rsa -in xxx.key -out ssl.key<br>rm xxx.key<br>然后根据这个key文件生成证书请求文件<br>openssl req -new -key ssl.key -out ssl.csr<br>后面需要填写个人信息，看着填就可以了，有的不是必填的enter跳古就可以了。<br>最后根据这2个文件生成crt证书文件<br>openssl x509 -req -days 365 -in ssl.csr -signkey ssl.key -out ssl.crt<br>在需要使用证书的nginx配置文件的server节点里加入以下配置就可以了。<br>特别的：下面的location系列配置是为了申请阿里云盾的ssl证书，为了文件验证方式而配置的。是为了在指定url下，可以访问到指定的文件以供验证。自己签发的ssl证书是在浏览器上访问会显示不安全，自己颁发的证书需要客户端验证通过，才可以继续访问。</p>
 <p>server {<br>        listen       443    ssl;<br>        server_name  app.datasoftware.com.cn;<br>        root html;<br>        index index.html index.htm;</p>
 <pre><code>    ssl_certificate      ssl/aliServer.pem;
     ssl_certificate_key  ssl/aliServer.key;
@@ -173,7 +256,6 @@
     ssl_session_timeout  5m;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers    ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
-#    ssl_ciphers  HIGH:!aNULL:!MD5;
     ssl_prefer_server_ciphers  on;
 
     location / {
@@ -197,11 +279,11 @@
 <li>每一个公钥都对应一个私钥。</li>
 <li></li>
 </ul>
-<h2 id="https的搭建"><a href="#https的搭建" class="headerlink" title="https的搭建"></a>https的搭建</h2>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/14/搭建https服务以及https介绍/" data-id="cjkxn30t80001ogsenz1z8lz8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/14/搭建https服务以及https介绍/" data-id="cjl4ra0zx0004k0semqtvelfq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -246,7 +328,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/14/hello-world/" data-id="cjkxn30t40000ogsedi6xpx5s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/14/hello-world/" data-id="cjl4ra0zu0002k0sef4w1cqvt" class="article-share-link">Share</a>
       
       
     </footer>
@@ -285,6 +367,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/08/17/lamdba表达式和-FunctionInterface/">lamdba表达式和@FunctionInterface</a>
+          </li>
         
           <li>
             <a href="/2018/08/17/redis实现分布式锁/">redis实现分布式锁</a>

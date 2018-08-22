@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="开发微信小程序，图片资源可以是http,接口必须要http请求。把公司服务器升级成https。之前也对https有过了解，现在更深一步的了解https。 非对称性加密和对称性加密当一个客户端和服务端通信的时候，发送明文是不安全的。这时候可以约定好一个密钥同时用作信息的加密和解密，这就是对称性加(symmetric cryptography)。但是一个服务端会和多个客户端通信，如果又一个客户端把密钥">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-16T15:24:55.064Z">
+<meta property="og:updated_time" content="2018-08-20T06:02:44.989Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建https服务以及https介绍">
 <meta name="twitter:description" content="开发微信小程序，图片资源可以是http,接口必须要http请求。把公司服务器升级成https。之前也对https有过了解，现在更深一步的了解https。 非对称性加密和对称性加密当一个客户端和服务端通信的时候，发送明文是不安全的。这时候可以约定好一个密钥同时用作信息的加密和解密，这就是对称性加(symmetric cryptography)。但是一个服务端会和多个客户端通信，如果又一个客户端把密钥">
@@ -91,11 +91,18 @@
 <ul>
 <li>非对称性加密过程<br>SSL协议基本过程是客户端向服务器端索要并验证公钥，双方协商生成”对话密钥”，双方采用”对话密钥”进行加密通信。索要并验证公钥，生成对话密钥被称为握手阶段。</li>
 </ul>
+<ol>
+<li>客户端发起HTTPS请求，访问服务器的443端口。</li>
+<li>服务器返回证书的公钥，其中还包含了一些信息，如证书的颁发机构，过期时间等。</li>
+<li>客户端解析证书这部分工作是由客户端的SSL/TLS来完成的，首先会验证公钥是否有效，比如颁发机构，过期时间等等，如果发现异常，则会弹出一个警示框，提示证书存在的问题。如果证书没有问题，那么就生成一个随机值。然后用证书（也就是公钥）对这个随机值进行加密。</li>
+<li>传送加密信息：这部分传送的是用证书加密后的随机值，目的是让服务端得到这个随机值，以后客户端和服务端的通信就可以通过这个随机值来进行加密解密了。</li>
+<li>服务端解密信息：服务端用私钥解密后，得到了客户端传过来的随机值，然后把内容通过该随机值进行对称加密，将信息和私钥通过某种算法混合在一起，这样除非知道私钥，不然无法获取内容，而正好客户端和服务端都知道这个私钥，所以只要加密算法够彪悍，私钥够复杂，数据就够安全。</li>
+<li>传输加密后的信息 这部分信息就是服务端用私钥加密后的信息，可以在客户端用随机值解密还原。</li>
+<li>客户端解密信息 客户端用之前生产的私钥解密服务端传过来的信息，于是获取了解密后的内容。整个过程第三方即使监听到了数据，也束手无策。</li>
+</ol>
 <h2 id="SSL证书和https的搭建"><a href="#SSL证书和https的搭建" class="headerlink" title="SSL证书和https的搭建"></a>SSL证书和https的搭建</h2><p>https协议是基于SSL协议的，SSL证书是数字证书的一种，遵守SSL协议，由受信任的数字证书颁发机构CA。自己其实也是可以制作SSL证书的。可以通过openssl命令生成证书。自己尝试签发一个免费证书，然后在需要使用证书的nginx配置文件的server节点里加入以下配置就可以了。</p>
 <p>首先执行如下命令生成一个key<br>openssl genrsa -des3 -out ssl.key 1024<br>然后他会要求你输入这个key文件的密码。不推荐输入。因为以后要给nginx使用。每次reload nginx配置时候都要你验证这个PAM密码的。<br>由于生成时候必须输入密码。你可以输入后再删掉。</p>
-<p>mv ssl.key xxx.key<br>openssl rsa -in xxx.key -out ssl.key<br>rm xxx.key<br>然后根据这个key文件生成证书请求文件<br>openssl req -new -key ssl.key -out ssl.csr<br>后面需要填写个人信息，看着填就可以了，有的不是必填的enter跳古就可以了。<br>最后根据这2个文件生成crt证书文件<br>openssl x509 -req -days 365 -in ssl.csr -signkey ssl.key -out ssl.crt</p>
-<p>在需要使用证书的nginx配置文件的server节点里加入以下配置就可以了。</p>
-<p>特别的：下面的location系列配置是为了申请阿里云盾的ssl证书，为了文件验证方式而配置的。是为了在指定url下，可以访问到指定的文件以供验证。自己签发的ssl证书是在浏览器上访问会显示不安全。</p>
+<p>mv ssl.key xxx.key<br>openssl rsa -in xxx.key -out ssl.key<br>rm xxx.key<br>然后根据这个key文件生成证书请求文件<br>openssl req -new -key ssl.key -out ssl.csr<br>后面需要填写个人信息，看着填就可以了，有的不是必填的enter跳古就可以了。<br>最后根据这2个文件生成crt证书文件<br>openssl x509 -req -days 365 -in ssl.csr -signkey ssl.key -out ssl.crt<br>在需要使用证书的nginx配置文件的server节点里加入以下配置就可以了。<br>特别的：下面的location系列配置是为了申请阿里云盾的ssl证书，为了文件验证方式而配置的。是为了在指定url下，可以访问到指定的文件以供验证。自己签发的ssl证书是在浏览器上访问会显示不安全，自己颁发的证书需要客户端验证通过，才可以继续访问。</p>
 <p>server {<br>        listen       443    ssl;<br>        server_name  app.datasoftware.com.cn;<br>        root html;<br>        index index.html index.htm;</p>
 <pre><code>    ssl_certificate      ssl/aliServer.pem;
     ssl_certificate_key  ssl/aliServer.key;
@@ -103,7 +110,6 @@
     ssl_session_timeout  5m;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
     ssl_ciphers    ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;
-#    ssl_ciphers  HIGH:!aNULL:!MD5;
     ssl_prefer_server_ciphers  on;
 
     location / {
@@ -127,11 +133,11 @@
 <li>每一个公钥都对应一个私钥。</li>
 <li></li>
 </ul>
-<h2 id="https的搭建"><a href="#https的搭建" class="headerlink" title="https的搭建"></a>https的搭建</h2>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/14/搭建https服务以及https介绍/" data-id="cjkxn30t80001ogsenz1z8lz8" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/14/搭建https服务以及https介绍/" data-id="cjl4ra0zx0004k0semqtvelfq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -187,6 +193,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/08/17/lamdba表达式和-FunctionInterface/">lamdba表达式和@FunctionInterface</a>
+          </li>
         
           <li>
             <a href="/2018/08/17/redis实现分布式锁/">redis实现分布式锁</a>

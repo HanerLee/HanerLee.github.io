@@ -7,14 +7,17 @@
   
   <title>redis实现分布式锁 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="为什么需要分布式锁某个客户端因为网络问题，用户没有收到成功返回，以为没有下单成功，再次发起请求。同样的订单可能会被下两次，这是不被允许的。为了保证http的幂等性，这个时候就需要加锁。在单节点服务器下，我们可以使用JVM实现的synchronized和jdk的Lock来实现。但是当应用涉及到多机，多进程共同完成时，就需要分布式锁来支持了。在RPC框架下，多个请求会被分发到不同的server上，那么">
+<meta property="og:type" content="article">
 <meta property="og:title" content="redis实现分布式锁">
 <meta property="og:url" content="http://yoursite.com/2018/08/17/redis实现分布式锁/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="为什么需要分布式锁某个客户端因为网络问题，用户没有收到成功返回，以为没有下单成功，再次发起请求。同样的订单可能会被下两次，这是不被允许的。为了保证http的幂等性，这个时候就需要加锁。在单节点服务器下，我们可以使用JVM实现的synchronized和jdk的Lock来实现。但是当应用涉及到多机，多进程共同完成时，就需要分布式锁来支持了。在RPC框架下，多个请求会被分发到不同的server上，那么">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-17T06:54:25.552Z">
+<meta property="og:updated_time" content="2018-08-18T04:15:26.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis实现分布式锁">
+<meta name="twitter:description" content="为什么需要分布式锁某个客户端因为网络问题，用户没有收到成功返回，以为没有下单成功，再次发起请求。同样的订单可能会被下两次，这是不被允许的。为了保证http的幂等性，这个时候就需要加锁。在单节点服务器下，我们可以使用JVM实现的synchronized和jdk的Lock来实现。但是当应用涉及到多机，多进程共同完成时，就需要分布式锁来支持了。在RPC框架下，多个请求会被分发到不同的server上，那么">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -83,11 +86,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="为什么需要分布式锁"><a href="#为什么需要分布式锁" class="headerlink" title="为什么需要分布式锁"></a>为什么需要分布式锁</h2><p>某个客户端因为网络问题，用户没有收到成功返回，以为没有下单成功，再次发起请求。同样的订单可能会被下两次，这是不被允许的。为了保证http的幂等性，这个时候就需要加锁。在单节点服务器下，我们可以使用JVM实现的synchronized和jdk的Lock来实现。但是当应用涉及到多机，多进程共同完成时，就需要分布式锁来支持了。在RPC框架下，多个请求会被分发到不同的server上，那么这时候就需要一个全局锁来实现多个线程(不同的进程)之间的同步。<br>常见的分布式锁可以基于数据库，缓存和zookeeper来实现。分布式锁需要满足哪些要求：</p>
+<ul>
+<li>可以保证在分布式部署的应用集群中，同一个方法在同一时间只能被一台机器上的一个线程执行。</li>
+<li>这把锁要是一把可重入锁（避免死锁）。</li>
+<li>有高可用的获取锁和释放锁功能。</li>
+<li>获取锁和释放锁的性能要好。</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/17/redis实现分布式锁/" data-id="cjkxn30tc0003ogsenx1odrxp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/17/redis实现分布式锁/" data-id="cjl4ra0zs0001k0seoiffp3ij" class="article-share-link">Share</a>
       
       
     </footer>
@@ -95,6 +105,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2018/08/17/lamdba表达式和-FunctionInterface/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          lamdba表达式和@FunctionInterface
+        
+      </div>
+    </a>
   
   
     <a href="/2018/08/15/动态代理和AOP/" id="article-nav-older" class="article-nav-link-wrap">
@@ -134,6 +153,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/08/17/lamdba表达式和-FunctionInterface/">lamdba表达式和@FunctionInterface</a>
+          </li>
         
           <li>
             <a href="/2018/08/17/redis实现分布式锁/">redis实现分布式锁</a>
