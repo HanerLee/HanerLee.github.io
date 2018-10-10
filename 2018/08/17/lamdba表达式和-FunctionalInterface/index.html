@@ -14,7 +14,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="函数式接口java8推出的特性lamdba表达式，lambda表达式可以使代码更简洁，列化和并行支持使用lambda的另外一个好处是我们可以使用Java的Stream API的串行和并行操作。函数式接口其实本质上还是一个接口，但是它是一种特殊的接口：SAM类型的接口（Single Abstract Method）。定义了这种类型的接口，使得以其为参数的方法，可以在调用时，使用一个lambda表达式">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-08-22T06:32:11.995Z">
+<meta property="og:updated_time" content="2018-09-05T14:06:32.494Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lamdba表达式和@FunctionalInterface">
 <meta name="twitter:description" content="函数式接口java8推出的特性lamdba表达式，lambda表达式可以使代码更简洁，列化和并行支持使用lambda的另外一个好处是我们可以使用Java的Stream API的串行和并行操作。函数式接口其实本质上还是一个接口，但是它是一种特殊的接口：SAM类型的接口（Single Abstract Method）。定义了这种类型的接口，使得以其为参数的方法，可以在调用时，使用一个lambda表达式">
@@ -116,14 +116,15 @@
 <li>函数式编程。流的操作不会修改数据源，例如filter不会将数据源中的数据删除。</li>
 <li>延迟操作。流的很多操作如filter,map等中间操作是延迟执行的，只有到终点操作才会将操作顺序执行。</li>
 <li>可以解绑。对于无限数量的流，有些操作是可以在有限的时间完成的，比如limit(n) 或 findFirst()，这些操作可是实现”短路”(Short-circuiting)，访问到有限的元素后就可以返回。</li>
-<li>纯消费。流的元素只能访问一次，类似Iterator，操作没有回头路，只有重新新建一个流</li>
+<li>纯消费。流的元素只能访问一次，类似Iterator，操作没有回头路，只有重新新建一个流。</li>
 </ul>
+<p>流的操作有很多，下面的代码是测试List&lt;Map&lt;String,String&gt;&gt;的list，抽取其中的map的value作为一个新的list<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] agrs)</span></span>&#123;</span><br><span class="line">    List&lt;Map&lt;String,String&gt;&gt; mapList = <span class="keyword">new</span> ArrayList();</span><br><span class="line">    Map&lt;String,String&gt; map1 = <span class="keyword">new</span> HashMap();</span><br><span class="line">    map1.put(<span class="string">"city"</span>,<span class="string">"hangzhou"</span>);</span><br><span class="line">    map1.put(<span class="string">"province"</span>,<span class="string">"zhejiang"</span>);</span><br><span class="line">    Map&lt;String,String&gt; map2 = <span class="keyword">new</span> HashMap();</span><br><span class="line">    map1.put(<span class="string">"city"</span>,<span class="string">"nanjing"</span>);</span><br><span class="line">    map1.put(<span class="string">"province"</span>,<span class="string">"jiangsu"</span>);</span><br><span class="line">    mapList.add(map1);</span><br><span class="line">    mapList.add(map2);</span><br><span class="line">    List&lt;String&gt; stringList;</span><br><span class="line">    stringList = mapList.stream().map(i -&gt; i.values.toArray()).flatMap(Arrays:stream).map(j-&gt;j.toString()).collect(Collectors.toList);</span><br><span class="line">    System.out.println(stringList);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="双冒号操作符"><a href="#双冒号操作符" class="headerlink" title="双冒号操作符"></a>双冒号操作符</h2><p>双冒号运算就是Java中的方法引用，格式为类名::方法名。注意是方法名，后面是没有括号的。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/17/lamdba表达式和-FunctionalInterface/" data-id="cjlcb2wpt00054yxkwpbi1wof" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/17/lamdba表达式和-FunctionalInterface/" data-id="cjn2jvzrq00027qxkc467ze0t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -168,7 +169,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
     </div>
   </div>
 
@@ -181,23 +182,23 @@
       <ul>
         
           <li>
+            <a href="/2018/09/12/netty初用/">netty初用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/05/CAS的实现/">CAS的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/29/sql的执行计划与慢查询的优化/">sql的执行计划与慢查询的优化</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/27/b-tree、b-tree和数据库索引/">b-tree、b+tree和数据库索引</a>
           </li>
         
           <li>
             <a href="/2018/08/27/threadLocal和spring的并发/">threadLocal和spring的并发</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/23/java中的锁/">java中的锁</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/23/g1垃圾回收策略和常用jvm调优工具/">g1垃圾回收策略和常用jvm调优工具</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/17/lamdba表达式和-FunctionalInterface/">lamdba表达式和@FunctionalInterface</a>
           </li>
         
       </ul>

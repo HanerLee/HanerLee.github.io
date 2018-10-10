@@ -62,6 +62,116 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-netty初用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/12/netty初用/" class="article-date">
+  <time datetime="2018-09-12T14:57:28.000Z" itemprop="datePublished">2018-09-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/12/netty初用/">netty初用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/12/netty初用/" data-id="cjn2jvzrt00057qxk4oj6wlci" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-CAS的实现" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/09/05/CAS的实现/" class="article-date">
+  <time datetime="2018-09-05T14:17:16.000Z" itemprop="datePublished">2018-09-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/05/CAS的实现/">CAS的实现</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>引子 todo<br>在前面的lamdba表达式中，是不能自增的<br>AtomicInteger<br>AtomicInteger.compareAndSet</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/09/05/CAS的实现/" data-id="cjn2jvzri00007qxkvokr5hno" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-sql的执行计划与慢查询的优化" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/29/sql的执行计划与慢查询的优化/" class="article-date">
+  <time datetime="2018-08-29T15:07:58.000Z" itemprop="datePublished">2018-08-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/29/sql的执行计划与慢查询的优化/">sql的执行计划与慢查询的优化</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="explainSql.png" alt=""></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/08/29/sql的执行计划与慢查询的优化/" data-id="cjn2jvzrw00077qxkg94hrttl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-b-tree、b-tree和数据库索引" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/27/b-tree、b-tree和数据库索引/" class="article-date">
@@ -88,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/27/b-tree、b-tree和数据库索引/" data-id="cjlcb2wpj00004yxkb2dm8792" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/27/b-tree、b-tree和数据库索引/" data-id="cjn2jvzrs00047qxkcltqizk6" class="article-share-link">Share</a>
       
       
     </footer>
@@ -120,11 +230,26 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="spring中的bean"><a href="#spring中的bean" class="headerlink" title="spring中的bean"></a>spring中的bean</h2><p>众所周知，spring的IOC为开发人员提供了极大的方便，其中的bean默认是单例模式。一般什么bean会被纳入spring管理呢？<br><strong>spring中的bean是无状态的。</strong> 什么是无状态，可以理解成无论是单例还是多例都不会出现线程安全问题的bean，不会因为多个线程的交替调度而破坏自身状态而导致安全问题。无状态对象包括实体类，dao,service,controller，他们本身没有自己的状态，它们只是用来执行某些操作的。而像service一般会持有数据库的connencttion，也是在方法中作为局部变量，即是存储在栈中，由线程私自持有，也不会存在线程安全的问题。<br>spring的bean是单例模式，这里的单例模式和java设计模式中的单例模式有点不同。设计模式中的单例是在整个应用中都只有一个实例，spring的单例模式指的是在一个JVM进程中只有一个实例。但是如果应用中有多个spring容器，那么就bean就会存在多个。因为Controller默认是单例的，一个HTTP请求是会被多个线程执行的，这样又会有线程安全的问题，这个时候就需要用到threadLocal了。<br>Spring根本就没有对bean的多线程安全问题做出任何保证与措施。对于每个bean的线程安全问题，根本原因是每个bean自身的设计。<strong>不要在bean中声明任何有状态的实例变量或类变量，如果必须如此，那么就使用ThreadLocal把变量变为线程私有的</strong>，如果bean的实例变量或类变量需要在多个线程之间共享，那么就只能使用synchronized、lock、CAS等这些实现线程同步的方法了。</p>
+<h2 id="ThreadLocal类"><a href="#ThreadLocal类" class="headerlink" title="ThreadLocal类"></a>ThreadLocal类</h2><p>ThreadLocal在每次实例化创建线程的时候都为每一个线程在本地变量中创建了自己独有的变量副本。每个线程都拥有了自己独立的一个变量，竞争条件被彻底消除了，那就没有必要使用 synchronized 关键字对这些线程进行同步，它们也能最大限度的使用系统资源，由CPU调度并发执行。<br>值得注意的是，threadLocal提供的是变量的浅拷贝，如果变量是一个引用类型，那么就要考虑它内部的状态是否会被改变，想要解决这个问题可以通过重写ThreadLocal的initialValue()函数来自己实现深拷贝，建议在使用ThreadLocal时一开始就重写该函数。</p>
+<h2 id="ThreadLocal存放在哪"><a href="#ThreadLocal存放在哪" class="headerlink" title="ThreadLocal存放在哪"></a>ThreadLocal存放在哪</h2><p>并不是所有被new出来的对象都是存放在堆上的。逃逸分析<br>其实不是，因为ThreadLocal实例实际上也是被其创建的类持有（更顶端应该是被线程持有）。而ThreadLocal的值其实也是被线程实例持有。它们都是位于堆上，只是通过一些技巧将可见性修改成了线程可见。<br>JVM在内存新生代Eden Space中开辟了一小块线程私有的区域，称作TLAB（Thread-local allocation buffer）。默认设定为占用Eden Space的1%。在Java程序中很多对象都是小对象且用过即丢，它们不存在线程共享也适合被快速GC，所以对于小对象通常JVM会优先分配在TLAB上，并且TLAB上的分配由于是线程私有所以没有锁开销。因此在实践中分配多个小对象的效率通常比分配一个大对象的效率要高。<br>也就是说，Java中每个线程都会有自己的缓冲区称作TLAB（Thread-local allocation buffer），每个TLAB都只有一个线程可以操作，TLAB结合bump-the-pointer技术可以实现快速的对象分配，而不需要任何的锁进行同步，也就是说，在对象分配的时候不用锁住整个堆，而只需要在自己的缓冲区分配即可。</p>
+<p>下面跟踪一下threadLocal类的几个方法：get()、set()、remove()、initialValue()。初始化方法返回线程局部变量的初始值，为了子类覆盖而设计的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the value in the current thread's copy of this</span></span><br><span class="line"><span class="comment">     * thread-local variable.  If the variable has no value for the</span></span><br><span class="line"><span class="comment">     * current thread, it is first initialized to the value returned</span></span><br><span class="line"><span class="comment">     * by an invocation of the &#123;<span class="doctag">@link</span> #initialValue&#125; method.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the current thread's value of this thread-local</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Thread t = Thread.currentThread();</span><br><span class="line">        ThreadLocalMap map = getMap(t);</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ThreadLocalMap.Entry e = map.getEntry(<span class="keyword">this</span>);</span><br><span class="line">            <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">                T result = (T)e.value;</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> setInitialValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Sets the current thread's copy of this thread-local variable</span></span><br><span class="line"><span class="comment">     * to the specified value.  Most subclasses will have no need to</span></span><br><span class="line"><span class="comment">     * override this method, relying solely on the &#123;<span class="doctag">@link</span> #initialValue&#125;</span></span><br><span class="line"><span class="comment">     * method to set the values of thread-locals.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value the value to be stored in the current thread's copy of</span></span><br><span class="line"><span class="comment">     *        this thread-local.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T value)</span> </span>&#123;</span><br><span class="line">        Thread t = Thread.currentThread();</span><br><span class="line">        ThreadLocalMap map = getMap(t);</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="keyword">null</span>)</span><br><span class="line">            map.set(<span class="keyword">this</span>, value);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            createMap(t, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Removes the current thread's value for this thread-local</span></span><br><span class="line"><span class="comment">     * variable.  If this thread-local variable is subsequently</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@linkplain</span> #get read&#125; by the current thread, its value will be</span></span><br><span class="line"><span class="comment">     * reinitialized by invoking its &#123;<span class="doctag">@link</span> #initialValue&#125; method,</span></span><br><span class="line"><span class="comment">     * unless its value is &#123;<span class="doctag">@linkplain</span> #set set&#125; by the current thread</span></span><br><span class="line"><span class="comment">     * in the interim.  This may result in multiple invocations of the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> initialValue&#125; method in the current thread.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.5</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         ThreadLocalMap m = getMap(Thread.currentThread());</span><br><span class="line">         <span class="keyword">if</span> (m != <span class="keyword">null</span>)</span><br><span class="line">             m.remove(<span class="keyword">this</span>);</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure></p>
+<p>写一个实例测试一下threadLocal<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SequenceNumber</span> </span>&#123;  </span><br><span class="line">       </span><br><span class="line">        <span class="comment">//通过匿名内部类覆盖ThreadLocal的initialValue()方法，指定初始值  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadLocal&lt;Integer&gt; seqNum = <span class="keyword">new</span> ThreadLocal&lt;Integer&gt;()&#123;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> Integer <span class="title">initialValue</span><span class="params">()</span></span>&#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;;  </span><br><span class="line">       </span><br><span class="line">        <span class="comment">//获取下一个序列值  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNextNum</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        seqNum.set(seqNum.get()+<span class="number">1</span>);  </span><br><span class="line">        <span class="keyword">return</span> seqNum.get();  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[ ] args)</span>   </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">          SequenceNumber sn = <span class="keyword">new</span> SequenceNumber();  </span><br><span class="line">           </span><br><span class="line">         <span class="comment">//3个线程共享sn，各自产生序列号  </span></span><br><span class="line">         TestClient t1 = <span class="keyword">new</span> TestClient(sn);    </span><br><span class="line">         TestClient t2 = <span class="keyword">new</span> TestClient(sn);  </span><br><span class="line">         TestClient t3 = <span class="keyword">new</span> TestClient(sn);  </span><br><span class="line">         t1.start();  </span><br><span class="line">         t2.start();  </span><br><span class="line">         t3.start();  </span><br><span class="line">    &#125;     </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TestClient</span> <span class="keyword">extends</span> <span class="title">Thread</span>  </span></span><br><span class="line"><span class="class">    </span>&#123;  </span><br><span class="line">        <span class="keyword">private</span> SequenceNumber sn;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">TestClient</span><span class="params">(SequenceNumber sn)</span> </span>&#123;  </span><br><span class="line">            <span class="keyword">this</span>.sn = sn;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">        </span>&#123;  </span><br><span class="line">                        <span class="comment">//④每个线程打出3个序列值  </span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;  </span><br><span class="line">            System.out.println(<span class="string">"thread["</span>+Thread.currentThread().getName()+  </span><br><span class="line"><span class="string">"] sn["</span>+sn.getNextNum()+<span class="string">"]"</span>);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后的结果：<br>thread[Thread-0] sn[1]<br>thread[Thread-0] sn[2]<br>thread[Thread-0] sn[3]<br>thread[Thread-1] sn[1]<br>thread[Thread-1] sn[2]<br>thread[Thread-2] sn[1]<br>thread[Thread-1] sn[3]<br>thread[Thread-2] sn[2]<br>thread[Thread-2] sn[3]<br>由此可以看出使用了threadLocal的变量在多线程环境下是安全的。</p>
+<h2 id="ThreadLocal中的内存泄漏"><a href="#ThreadLocal中的内存泄漏" class="headerlink" title="ThreadLocal中的内存泄漏"></a>ThreadLocal中的内存泄漏</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span> <span class="keyword">extends</span> <span class="title">WeakReference</span>&lt;<span class="title">ThreadLocal</span>&lt;?&gt;&gt; </span>&#123;</span><br><span class="line">            <span class="comment">/** The value associated with this ThreadLocal. */</span></span><br><span class="line">            Object value;</span><br><span class="line"></span><br><span class="line">            Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">                <span class="keyword">super</span>(k);</span><br><span class="line">                value = v;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>threadLocal内部是靠threadLocalMap维护的，由源码可以看到，<br>我们要考虑一种会发生内存泄漏的情况，如果ThreadLocal被设置为null后，而且没有任何强引用指向它，根据垃圾回收的可达性分析算法，ThreadLocal将会被回收。这样一来，ThreadLocalMap中就会含有key为null的Entry，而且ThreadLocalMap是在Thread中的，只要线程迟迟不结束，这些无法访问到的value会形成内存泄漏。</p>
+<ul>
+<li>为了安全地使用ThreadLocal，必须要像每次使用完锁就解锁一样，在每次使用完ThreadLocal后都要调用remove()来清理无用的Entry。 </li>
+</ul>
+<h2 id="Spring-mvc-synchronized-应避免在service中使用"><a href="#Spring-mvc-synchronized-应避免在service中使用" class="headerlink" title="Spring mvc synchronized 应避免在service中使用"></a>Spring mvc synchronized 应避免在service中使用</h2><p>synchronized用在service中，而spring mvc中的事物一般就是控制在service层(事物没配置在service层就另当别论)。由于Spring事务是通过AOP实现的，所以在s方法执行之前会有开启事务，之后会有提交事务逻辑。而synchronized代码块执行是在事务之内执行的，可以推断在synchronized代码块执行完时，事务还未提交，其他线程进入synchronized代码块后，读取的数据不是最新的。可以考虑将synchronized加在controller上，使synchronized锁的范围大于事务控制的范围。</p>
+<blockquote>
+<p>参考作者为SylvanasSun(<a href="mailto:sylvanas.sun@gmail.com" target="_blank" rel="noopener">sylvanas.sun@gmail.com</a>)，首发于SylvanasSun’s Blog。<br>原文链接：<a href="https://sylvanassun.github.io/2017/11/06/2017-11-06-spring_and_thread-safe/" target="_blank" rel="noopener">https://sylvanassun.github.io/2017/11/06/2017-11-06-spring_and_thread-safe/</a></p>
+</blockquote>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/27/threadLocal和spring的并发/" data-id="cjlcb2wpr00034yxkp7ns9zka" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/27/threadLocal和spring的并发/" data-id="cjn2jvzs9000a7qxkiiim1dj1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -160,7 +285,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/23/java中的锁/" data-id="cjlcb2wps00044yxk5xuoba0i" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/23/java中的锁/" data-id="cjn2jvzrr00037qxku1747ipi" class="article-share-link">Share</a>
       
       
     </footer>
@@ -192,11 +317,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="引子"><a href="#引子" class="headerlink" title="引子"></a>引子</h2><p>在前面的threadLocal一章中，提到了动态代理。动态代理生成的类是存放在方法区中的。（永久代是HotSpot特有的一个区，是方法区的一个实现，别的虚拟机都没有永久代。我们平时用的oracle的jdk的虚拟机就是HotSpot）</p>
+<h2 id="垃圾回收器的种类"><a href="#垃圾回收器的种类" class="headerlink" title="垃圾回收器的种类"></a>垃圾回收器的种类</h2><h2 id="垃圾回收的方法"><a href="#垃圾回收的方法" class="headerlink" title="垃圾回收的方法"></a>垃圾回收的方法</h2><h1 id="标记清除算法"><a href="#标记清除算法" class="headerlink" title="标记清除算法"></a>标记清除算法</h1><h1 id="复制算法"><a href="#复制算法" class="headerlink" title="复制算法"></a>复制算法</h1><h1 id="标记整理算法"><a href="#标记整理算法" class="headerlink" title="标记整理算法"></a>标记整理算法</h1><h1 id="分代收集算法"><a href="#分代收集算法" class="headerlink" title="分代收集算法"></a>分代收集算法</h1>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/23/g1垃圾回收策略和常用jvm调优工具/" data-id="cjlcb2wpn00014yxkvpp9xcw3" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/23/g1垃圾回收策略和常用jvm调优工具/" data-id="cjn2jvzrn00017qxkuu0qtywm" class="article-share-link">Share</a>
       
       
     </footer>
@@ -258,14 +384,15 @@
 <li>函数式编程。流的操作不会修改数据源，例如filter不会将数据源中的数据删除。</li>
 <li>延迟操作。流的很多操作如filter,map等中间操作是延迟执行的，只有到终点操作才会将操作顺序执行。</li>
 <li>可以解绑。对于无限数量的流，有些操作是可以在有限的时间完成的，比如limit(n) 或 findFirst()，这些操作可是实现”短路”(Short-circuiting)，访问到有限的元素后就可以返回。</li>
-<li>纯消费。流的元素只能访问一次，类似Iterator，操作没有回头路，只有重新新建一个流</li>
+<li>纯消费。流的元素只能访问一次，类似Iterator，操作没有回头路，只有重新新建一个流。</li>
 </ul>
+<p>流的操作有很多，下面的代码是测试List&lt;Map&lt;String,String&gt;&gt;的list，抽取其中的map的value作为一个新的list<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] agrs)</span></span>&#123;</span><br><span class="line">    List&lt;Map&lt;String,String&gt;&gt; mapList = <span class="keyword">new</span> ArrayList();</span><br><span class="line">    Map&lt;String,String&gt; map1 = <span class="keyword">new</span> HashMap();</span><br><span class="line">    map1.put(<span class="string">"city"</span>,<span class="string">"hangzhou"</span>);</span><br><span class="line">    map1.put(<span class="string">"province"</span>,<span class="string">"zhejiang"</span>);</span><br><span class="line">    Map&lt;String,String&gt; map2 = <span class="keyword">new</span> HashMap();</span><br><span class="line">    map1.put(<span class="string">"city"</span>,<span class="string">"nanjing"</span>);</span><br><span class="line">    map1.put(<span class="string">"province"</span>,<span class="string">"jiangsu"</span>);</span><br><span class="line">    mapList.add(map1);</span><br><span class="line">    mapList.add(map2);</span><br><span class="line">    List&lt;String&gt; stringList;</span><br><span class="line">    stringList = mapList.stream().map(i -&gt; i.values.toArray()).flatMap(Arrays:stream).map(j-&gt;j.toString()).collect(Collectors.toList);</span><br><span class="line">    System.out.println(stringList);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="双冒号操作符"><a href="#双冒号操作符" class="headerlink" title="双冒号操作符"></a>双冒号操作符</h2><p>双冒号运算就是Java中的方法引用，格式为类名::方法名。注意是方法名，后面是没有括号的。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/17/lamdba表达式和-FunctionalInterface/" data-id="cjlcb2wpt00054yxkwpbi1wof" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/17/lamdba表达式和-FunctionalInterface/" data-id="cjn2jvzrq00027qxkc467ze0t" class="article-share-link">Share</a>
       
       
     </footer>
@@ -305,14 +432,16 @@
 <li>分布式系统中，可能产生死锁的情况要相对复杂一些。分布式系统是处在复杂网络环境中的，当一个节点获取到锁，如果它在释放锁之前挂掉了，或者因网络故障无法执行释放锁的命令，都会导致其他节点无法申请到锁。<br>因此分布式锁有必要设置时效，确保在未来的一定时间内，无论获得锁的节点发生了什么问题，最终锁都能被释放掉。获取锁和释放锁的性能要好。</li>
 </ul>
 <h2 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h2><p>Redisson是架设在Redis基础上的一个Java驻内存数据网格（In-Memory Data Grid）。充分的利用了Redis键值数据库提供的一系列优势，基于Java实用工具包中常用接口，为使用者提供了一系列具有分布式特性的常用工具类。使得原本作为协调单机多线程并发程序的工具包获得了协调分布式多机多线程并发系统的能力，大大降低了设计和研发大规模分布式系统的难度。同时结合各富特色的分布式服务，更进一步简化了分布式环境中程序相互之间的协作。Redisson框架本身可以提供分布式锁的功能，还是先造造轮子，毕竟造轮子的过程中也能学到很多。</p>
-<h2 id="为什么需要设计成可重入式"><a href="#为什么需要设计成可重入式" class="headerlink" title="为什么需要设计成可重入式"></a>为什么需要设计成可重入式</h2><p>在很多情况下线程需要多次进入锁内执行任务。比如在同一线程可能多次执行add操作。<br>在这里顺便提一下java的synchronized机制。jvm实现的synchronized和jdk的ReentrantLock都是可重入锁。synchronized可作用于instance变量、object reference（对象引用）、static函数和class literals(类名称字面常量)身上。<strong>无论synchronized作用在方法上或者对象上，其都是对对象加锁，而不是把一段代码或者方法当作锁。</strong>而且同步方法很可能还会被其他线程的对象访问。<br>当synchronized作用在函数上时，也就是同步方法，此时synchronized锁定的是调用这个同步方法的对象。即一个对象p1在不同的线程中调用这个方法的时候会形成互斥，但是跟p1同一类型的对象p2却可以任意调用这个方法。</p>
+<h2 id="为什么需要设计成可重入式"><a href="#为什么需要设计成可重入式" class="headerlink" title="为什么需要设计成可重入式"></a>为什么需要设计成可重入式</h2><p>在很多情况下线程需要多次进入锁内执行任务。比如在同一线程可能多次执行add操作。每次add操作时都需要获取锁对象<br>在这里顺便提一下java的synchronized机制。jvm实现的synchronized和jdk的ReentrantLock都是可重入锁。synchronized可作用于instance变量、object reference（对象引用）、static函数和class literals(类名称字面常量)身上。<strong>无论synchronized作用在方法上或者对象上，其都是对对象加锁，而不是把一段代码或者方法当作锁。</strong>而且同步方法很可能还会被其他线程的对象访问。<br>当synchronized作用在函数上时，也就是同步方法，此时synchronized锁定的是调用这个同步方法的对象。即一个对象p1在不同的线程中调用这个方法的时候会形成互斥，但是跟p1同一类型的对象p2却可以任意调用这个方法。</p>
 <p>下面两种synchronized的用法其实是一样的，都是对调用方法的对象加锁。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//······</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>&#123;</span><br><span class="line">    synchroniszed(<span class="keyword">this</span>)&#123;</span><br><span class="line">        <span class="comment">//······</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>当synchronized作用在static方法上时，这种情况是和上面的例子所不一样的。其是把Class对象作为了锁。假如一个类中定义了一个synchronized的static函数A，也定义了一个synchronized 的instance函数B，那么这个类的同一对象Obj在多线程中分别访问A和B两个方法时，不会有互斥的情况，因为他们的锁都不相同。A方法的锁是Obj所属的那个Class，而B的锁是Obj所属的这个对象。<br>可重入锁指的是在同一个线程中可以多次获取同一把锁，线程可以进入任何一个它已经拥有的锁所同步着的代码块。如果一个线程持有某个管程对象上的锁，那么它就有权访问所有在该管程对象上同步的块。这就叫可重入。若线程已经持有锁，那么它就可以重复访问所有使用该锁的代码块。</p>
+<h2 id="redis实现分布式锁"><a href="#redis实现分布式锁" class="headerlink" title="redis实现分布式锁"></a>redis实现分布式锁</h2><p>SETNX lock.id <current 1="" unix="" time="" +="" lock="" timeout=""><br>SETNX是将 key 的值设为 value，当且仅当 key 不存在。若给定的 key 已经存在，则 SETNX 不做任何动作。</current></p>
+<p>返回1，说明该进程获得锁，SETNX将键 lock.id 的值设置为锁的超时时间，当前时间 +加上锁的有效时间。<br>返回0，说明其他进程已经获得了锁，进程不能进入临界区。进程可以在一个循环中不断地尝试 SETNX 操作，以获得锁。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/17/redis实现分布式锁/" data-id="cjlcb2wpp00024yxk2edvmn62" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/17/redis实现分布式锁/" data-id="cjn2jvzry00087qxkh3qgtxyd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -348,66 +477,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/15/动态代理和AOP/" data-id="cjlcb2wpy00074yxk8ak4n98a" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-搭建https服务以及https介绍" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/14/搭建https服务以及https介绍/" class="article-date">
-  <time datetime="2018-08-14T13:31:28.000Z" itemprop="datePublished">2018-08-14</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/14/搭建https服务以及https介绍/">搭建https服务以及https介绍</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>开发微信小程序，图片资源可以是http,接口必须要http请求。把公司服务器升级成https。之前也对https有过了解，现在更深一步的了解https。</p>
-<h2 id="非对称性加密和对称性加密"><a href="#非对称性加密和对称性加密" class="headerlink" title="非对称性加密和对称性加密"></a>非对称性加密和对称性加密</h2><p>当一个客户端和服务端通信的时候，发送明文是不安全的。这时候可以约定好一个密钥同时用作信息的加密和解密，这就是对称性加(symmetric cryptography)。但是一个服务端会和多个客户端通信，如果又一个客户端把密钥泄密了，这时候整个网站都不安全了。这时候就需要非对称性加密（asymmetric cryptography）。<a href="https://zh.wikipedia.org/zh-cn/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">RSA</a>算法一直是最广为使用的”非对称加密算法”。客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密。公钥负责加密，私钥负责解密。私钥负责签名，公钥负责验证。</p>
-<ul>
-<li>非对称性加密过程<br>SSL协议基本过程是客户端向服务器端索要并验证公钥，双方协商生成”对话密钥”，双方采用”对话密钥”进行加密通信。索要并验证公钥，生成对话密钥被称为握手阶段。</li>
-</ul>
-<ol>
-<li>客户端发起HTTPS请求，访问服务器的443端口。</li>
-<li>服务器返回证书的公钥，其中还包含了一些信息，如证书的颁发机构，过期时间等。</li>
-<li>客户端解析证书这部分工作是由客户端的SSL/TLS来完成的，首先会验证公钥是否有效，比如颁发机构，过期时间等等，如果发现异常，则会弹出一个警示框，提示证书存在的问题。如果证书没有问题，那么就生成一个随机值。然后用证书（也就是公钥）对这个随机值进行加密。</li>
-<li>传送加密信息：这部分传送的是用证书加密后的随机值，目的是让服务端得到这个随机值，以后客户端和服务端的通信就可以通过这个随机值来进行加密解密了。</li>
-<li>服务端解密信息：服务端用私钥解密后，得到了客户端传过来的随机值，然后把内容通过该随机值进行对称加密，将信息和私钥通过某种算法混合在一起，这样除非知道私钥，不然无法获取内容，而正好客户端和服务端都知道这个私钥，所以只要加密算法够彪悍，私钥够复杂，数据就够安全。</li>
-<li>传输加密后的信息 这部分信息就是服务端用私钥加密后的信息，可以在客户端用随机值解密还原。</li>
-<li>客户端解密信息 客户端用之前生产的私钥解密服务端传过来的信息，于是获取了解密后的内容。整个过程第三方即使监听到了数据，也束手无策。</li>
-</ol>
-<h2 id="SSL证书和https的搭建"><a href="#SSL证书和https的搭建" class="headerlink" title="SSL证书和https的搭建"></a>SSL证书和https的搭建</h2><p>https协议是基于SSL协议的，SSL证书是数字证书的一种，遵守SSL协议，由受信任的数字证书颁发机构CA。自己其实也是可以制作SSL证书的。可以通过openssl命令生成证书。自己尝试签发一个免费证书，然后在需要使用证书的nginx配置文件的server节点里加入以下配置就可以了。</p>
-<p>首先执行如下命令生成一个key<br>openssl genrsa -des3 -out ssl.key 1024<br>然后他会要求你输入这个key文件的密码。不推荐输入。因为以后要给nginx使用。每次reload nginx配置时候都要你验证这个PAM密码的。<br>由于生成时候必须输入密码。你可以输入后再删掉。</p>
-<p>mv ssl.key xxx.key<br>openssl rsa -in xxx.key -out ssl.key<br>rm xxx.key<br>然后根据这个key文件生成证书请求文件<br>openssl req -new -key ssl.key -out ssl.csr<br>后面需要填写个人信息，看着填就可以了，有的不是必填的enter跳古就可以了。<br>最后根据这2个文件生成crt证书文件<br>openssl x509 -req -days 365 -in ssl.csr -signkey ssl.key -out ssl.crt<br>在需要使用证书的nginx配置文件的server节点里加入以下配置就可以了。<br>特别的：下面的location系列配置是为了申请阿里云盾的ssl证书，为了文件验证方式而配置的。是为了在指定url下，可以访问到指定的文件以供验证。自己签发的ssl证书是在浏览器上访问会显示不安全，自己颁发的证书需要客户端验证通过，才可以继续访问。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       443    ssl;</span><br><span class="line">        server_name  app.datasoftware.com.cn;</span><br><span class="line">        root html;</span><br><span class="line">        index index.html index.htm;</span><br><span class="line"></span><br><span class="line">        ssl_certificate      ssl/aliServer.pem;</span><br><span class="line">        ssl_certificate_key  ssl/aliServer.key;</span><br><span class="line"></span><br><span class="line">        ssl_session_timeout  5m;</span><br><span class="line">		ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">		ssl_ciphers	ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">        ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">			# proxy_pass	http://www.datasoftware.com.cn/about.html;</span><br><span class="line">        &#125;</span><br><span class="line">        location /file/ &#123;</span><br><span class="line">            alias   /home/hadoop/wangwei/upload_manager/;</span><br><span class="line">        &#125;</span><br><span class="line">        location /.well-known/ &#123;</span><br><span class="line">            alias   /home/hadoop/wangwei/upload_manager/fileauth/.well-known/;</span><br><span class="line">        &#125;</span><br><span class="line">		location /zhzs &#123;</span><br><span class="line">			proxy_pass	http://localhost:7007/zhzs;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>此时</p>
-<ul>
-<li>每一个公钥都对应一个私钥。</li>
-<li></li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/08/14/搭建https服务以及https介绍/" data-id="cjlcb2wpu00064yxkandqouaw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2018/08/15/动态代理和AOP/" data-id="cjn2jvzrv00067qxk5jtvz28m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -418,6 +488,11 @@
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -435,7 +510,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li></ul>
     </div>
   </div>
 
@@ -448,23 +523,23 @@
       <ul>
         
           <li>
+            <a href="/2018/09/12/netty初用/">netty初用</a>
+          </li>
+        
+          <li>
+            <a href="/2018/09/05/CAS的实现/">CAS的实现</a>
+          </li>
+        
+          <li>
+            <a href="/2018/08/29/sql的执行计划与慢查询的优化/">sql的执行计划与慢查询的优化</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/27/b-tree、b-tree和数据库索引/">b-tree、b+tree和数据库索引</a>
           </li>
         
           <li>
             <a href="/2018/08/27/threadLocal和spring的并发/">threadLocal和spring的并发</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/23/java中的锁/">java中的锁</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/23/g1垃圾回收策略和常用jvm调优工具/">g1垃圾回收策略和常用jvm调优工具</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/17/lamdba表达式和-FunctionalInterface/">lamdba表达式和@FunctionalInterface</a>
           </li>
         
       </ul>
