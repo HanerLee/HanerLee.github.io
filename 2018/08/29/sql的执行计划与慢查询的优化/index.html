@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="idselect 查询的序列号，包含一组可以重复的数字，表示查询中执行sql语句的顺序。一般有三种情况： 第一种：id全部相同，sql的执行顺序是由上至下； 第二种：id全部不同，sql的执行顺序是根据id大的优先执行； 第三种：id既存在相同，又存在不同的。先根据id大的优先执行，再根据相同id从上至下的执行。  select_type select 查询的类型，主要是用于区别普通查询，联合查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql的执行计划与慢查询的优化">
+<meta property="og:url" content="http://yoursite.com/2018/08/29/sql的执行计划与慢查询的优化/index.html">
+<meta property="og:site_name" content="HanerLee&#39;s Blog">
+<meta property="og:description" content="idselect 查询的序列号，包含一组可以重复的数字，表示查询中执行sql语句的顺序。一般有三种情况： 第一种：id全部相同，sql的执行顺序是由上至下； 第二种：id全部不同，sql的执行顺序是根据id大的优先执行； 第三种：id既存在相同，又存在不同的。先根据id大的优先执行，再根据相同id从上至下的执行。  select_type select 查询的类型，主要是用于区别普通查询，联合查询">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/08/29/sql的执行计划与慢查询的优化/explainSql.png">
+<meta property="og:updated_time" content="2018-11-27T09:04:22.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql的执行计划与慢查询的优化">
+<meta name="twitter:description" content="idselect 查询的序列号，包含一组可以重复的数字，表示查询中执行sql语句的顺序。一般有三种情况： 第一种：id全部相同，sql的执行顺序是由上至下； 第二种：id全部不同，sql的执行顺序是根据id大的优先执行； 第三种：id既存在相同，又存在不同的。先根据id大的优先执行，再根据相同id从上至下的执行。  select_type select 查询的类型，主要是用于区别普通查询，联合查询">
+<meta name="twitter:image" content="http://yoursite.com/2018/08/29/sql的执行计划与慢查询的优化/explainSql.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/29/sql的执行计划与慢查询的优化/"/>
+
+
+
+
+
+  <title>sql的执行计划与慢查询的优化 | HanerLee's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">HanerLee's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/sql的执行计划与慢查询的优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanerLee's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sql的执行计划与慢查询的优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T23:07:58+08:00">
+                2018-08-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>id</strong><br>select 查询的序列号，包含一组可以重复的数字，表示查询中执行sql语句的顺序。一般有三种情况：<br> 第一种：id全部相同，sql的执行顺序是由上至下；<br> 第二种：id全部不同，sql的执行顺序是根据id大的优先执行；<br> 第三种：id既存在相同，又存在不同的。先根据id大的优先执行，再根据相同id从上至下的执行。</p>
+<p> <strong>select_type</strong><br> select 查询的类型，主要是用于区别普通查询，联合查询，嵌套的复杂查询<br> simple：简单的select 查询，查询中不包含子查询或者union<br> primary：查询中若包含任何复杂的子查询，最外层查询则被标记为primary<br> subquery：在select或where 列表中包含了子查询<br> derived：在from列表中包含的子查询被标记为derived（衍生）MySQL会递归执行这些子查询，把结果放在临时表里。<br> union：若第二个select出现在union之后，则被标记为union，若union包含在from子句的子查询中，外层select将被标记为：derived<br> union result：从union表获取结果的select</p>
+<p> <strong>partitions</strong><br>表所使用的分区，如果要统计十年公司订单的金额，可以把数据分为十个区，每一年代表一个区。这样可以大大的提高查询效率。</p>
+<p> <strong>type</strong><br> 这是一个非常重要的参数，连接类型，常见的有：all , index , range , ref , eq_ref , const , system , null 八个级别。<br> 性能从最优到最差的排序：system &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; all<br> 对java程序员来说，若保证查询至少达到range级别或者最好能达到ref则算是一个优秀而又负责的程序员。<br> all：（full table scan）全表扫描无疑是最差，若是百万千万级数据量，全表扫描会非常慢。<br> index：（full index scan）全索引文件扫描比all好很多，毕竟从索引树中找数据，比从全表中找数据要快。<br> range：只检索给定范围的行，使用索引来匹配行。范围缩小了，当然比全表扫描和全索引文件扫描要快。sql语句中一般会有between，in，&gt;，&lt; 等查询。<br> ref：非唯一性索引扫描，本质上也是一种索引访问，返回所有匹配某个单独值的行。比如查询公司所有属于研发团队的同事，匹配的结果是多个并非唯一值。<br> eq_ref：唯一性索引扫描，对于每个索引键，表中有一条记录与之匹配。比如查询公司的CEO，匹配的结果只可能是一条记录，<br> const：表示通过索引一次就可以找到，const用于比较primary key 或者unique索引。因为只匹配一行数据，所以很快，若将主键至于where列表中，MySQL就能将该查询转换为一个常量。<br> system：表只有一条记录（等于系统表），这是const类型的特列，平时不会出现，了解即可</p>
+<p><strong>possible_keys</strong><br>显示查询语句可能用到的索引(一个或多个或为null)，不一定被查询实际使用。仅供参考使用。</p>
+<p><strong>keys</strong><br>显示查询语句实际使用的索引。若为null，则表示没有使用索引。</p>
+<p><strong>key_len</strong><br>显示索引中使用的字节数，可通过key_len计算查询中使用的索引长度。在不损失精确性的情况下索引长度越短越好。key_len 显示的值为索引字段的最可能长度，并非实际使用长度，即key_len是根据表定义计算而得，并不是通过表内检索出的。</p>
+<p><strong>ref</strong><br>显示索引的哪一列或常量被用于查找索引列上的值。</p>
+<p><strong>rows</strong><br>根据表统计信息及索引选用情况，大致估算出找到所需的记录所需要读取的行数，值越大越不好。</p>
+<p><strong>extra</strong><br>Using filesort： 说明MySQL会对数据使用一个外部的索引排序，而不是按照表内的索引顺序进行读取。MySQL中无法利用索引完成的排序操作称为“文件排序” 。出现这个就要立刻优化sql。<br> Using temporary： 使用了临时表保存中间结果，MySQL在对查询结果排序时使用临时表。常见于排序 order by 和 分组查询 group by。 出现这个更要立刻优化sql。<br> Using index： 表示相应的select 操作中使用了覆盖索引（Covering index），避免访问了表的数据行，效果不错！如果同时出现Using where，表明索引被用来执行索引键值的查找。如果没有同时出现Using where，表示索引用来读取数据而非执行查找动作。<br> 覆盖索引（Covering Index） ：也叫索引覆盖，就是select 的数据列只用从索引中就能够取得，不必读取数据行，MySQL可以利用索引返回select 列表中的字段，而不必根据索引再次读取数据文件。<br> Using index condition： 在5.6版本后加入的新特性，优化器会在索引存在的情况下，通过符合RANGE范围的条数 和 总数的比例来选择是使用索引还是进行全表遍历。<br> Using where： 表明使用了where 过滤<br> Using join buffer： 表明使用了连接缓存<br> impossible where： where 语句的值总是false，不可用，不能用来获取任何元素<br> distinct： 优化distinct操作，在找到第一匹配的元组后即停止找同样值的动作。</p>
+<p><strong>filtered</strong><br>一个百分比的值，和rows 列的值一起使用，可以估计出查询执行计划(QEP)中的前一个表的结果集，从而确定join操作的循环次数。小表驱动大表，减轻连接的次数。</p>
+<p><strong>如何判断失效索引</strong><br>在创建联合索引的时候，需要注意最左前缀原则。</p>
+<p><img src="explainSql.png" alt=""></p>
+<p>在使用索引查询的情况下，type会是index。借鉴阿里巴巴java开发手册，看看阿里是怎么规范索引的。<br>用于索引的最好的备选数据列是那些出现在WHERE子句、join子句、ORDER BY或GROUP BY子句中的列。<br>仅仅出现在SELECT关键字后面的输出数据列列表中的数据列不是很好的备选列</p>
+<ol>
+<li>【强制】业务上具有唯一特性的字段，即使是多个字段的组合，也必须建成唯一索引。 说明:不要以为唯一索引影响了 insert 速度，这个速度损耗可以忽略，但提高查找速度是明 显的;另外，即使在应用层做了非常完善的校验控制，只要没有唯一索引，根据墨菲定律，必 然有脏数据产生。</li>
+<li>【强制】超过三个表禁止 join。需要 join 的字段，数据类型必须绝对一致;多表关联查询时， 保证被关联的字段需要有索引。<br>说明:即使双表 join 也要注意表索引、SQL 性能。</li>
+<li>【强制】在 varchar 字段上建立索引时，必须指定索引长度，没必要对全字段建立索引，根据 实际文本区分度决定索引长度即可。 说明:索引的长度与区分度是一对矛盾体，一般对字符串类型数据，长度为 20 的索引，区分度会高达 90%以上，可以使用 count(distinct left(列名, 索引长度))/count(*)的区分度<br>来确定。</li>
+<li>【强制】页面搜索严禁左模糊或者全模糊，如果需要请走搜索引擎来解决。 说明:索引文件具有 B-Tree 的最左前缀匹配特性，如果左边的值未确定，那么无法使用此索 引。</li>
+<li>【推荐】如果有 order by 的场景，请注意利用索引的有序性。order by 最后的字段是组合 索引的一部分，并且放在索引组合顺序的最后，避免出现 file_sort 的情况，影响查询性能。 正例:where a=? and b=? order by c; 索引:a_b_c 反例:索引中有范围查找，那么索引有序性无法利用，如:WHERE a&gt;10 ORDER BY b; 索引 a_b 无法排序。</li>
+<li>【推荐】利用覆盖索引来进行查询操作，避免回表。<br>说明:如果一本书需要知道第 11 章是什么标题，会翻开第 11 章对应的那一页吗?目录浏览 一下就好，这个目录就是起到覆盖索引的作用。 正例:能够建立索引的种类:主键索引、唯一索引、普通索引，而覆盖索引是一种查询的一种 效果，用explain的结果，extra列会出现:using index。</li>
+<li>【推荐】利用延迟关联或者子查询优化超多分页场景。<br>说明:MySQL 并不是跳过 offset 行，而是取 offset+N 行，然后返回放弃前 offset 行，返回 N 行，那当 offset 特别大的时候，效率就非常的低下，要么控制返回的总页数，要么对超过 特定阈值的页数进行 SQL 改写。<br>正例:先快速定位需要获取的 id 段，然后再关联:<br>SELECT a.* FROM 表 1 a, (select id from 表 1 where 条件 LIMIT 100000,20 ) b where a.id=b.id</li>
+<li>【推荐】SQL 性能优化的目标:至少要达到 range 级别，要求是 ref 级别，如果可以是 consts 最好。<br>说明:<br>1)consts 单表中最多只有一个匹配行(主键或者唯一索引)，在优化阶段即可读取到数据。 2)ref 指的是使用普通的索引(normal index)。<br>3)range 对索引进行范围检索。<br>反例:explain 表的结果，type=index，索引物理文件全扫描，速度非常慢，这个 index 级 别比较 range 还低，与全表扫描是小巫见大巫。</li>
+<li>【推荐】建组合索引的时候，区分度最高的在最左边。<br>正例:如果 where a=? and b=? ，a 列的几乎接近于唯一值，那么只需要单建idx_a索引即可。说明:存在非等号和等号混合判断条件时，在建索引时，请把等号条件的列前置。如:where a&gt;?and b=?那么即使 a 的区分度更高，也必须把 b 放在索引的最前列。</li>
+</ol>
+<p>阿里巴巴 Java 开发手册</p>
+<ol start="10">
+<li>【推荐】防止因字段类型不同造成的隐式转换，导致索引失效。</li>
+<li>【参考】创建索引时避免有如下极端误解: 1)宁滥勿缺。认为一个查询就需要建一个索引。 2)宁缺勿滥。认为索引会消耗空间、严重拖慢更新和新增速度。3)抵制惟一索引。认为业务的惟一性一律需要在应用层通过“先查后插”方式解决。</li>
+</ol>
+<p>在这里解释一下索引长度的问题和最左匹配原则的理解<br>索引在innodb引擎中其实以索引文件的形式存在。innodb是聚簇索引，所以要求每张表都要有主键，这样数据在测盘中的存储就变得有规则，而不是一块一块分开的文件。这又涉及到b+tree的结构。innodb的索引文件其实是以b+tree的数据结构存在的，不像myisam的b-tree结构。一条数据记录为一个二元组[key, data]，key为记录的键值，对于不同数据记录，key是互不相同的；data为数据记录除key外的数据。每个节点的data是存储值的，而不是存储数据的地址。这样数据在磁盘中就是真正意义上的在一起的数据。b+tree中的索引就是主键，其他的索引中存储的date都是数据的主键的值。<br>既然是文件，那么就会有大小。我们可以把单个索引看成是只有一列数据的组合索引。，Mysql Innodb中单列索引默认最大长度767bytes也就是255字符。索引字段长度超过时，如果是unique的会提示失败；如果是非唯一的，会自动截取前255位作为索引键。当索引长度超过设定的值的时候，查询会出现回表查询的情况。</p>
+<blockquote>
+<p>参考阿里巴巴java开发手册</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/27/threadLocal和spring的并发/" rel="next" title="threadLocal和spring的并发">
+                <i class="fa fa-chevron-left"></i> threadLocal和spring的并发
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/05/CAS的实现/" rel="prev" title="CAS的实现">
+                CAS的实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
