@@ -229,7 +229,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/jvm参数命令/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/12/多数据源的切换/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="John Doe">
@@ -248,7 +248,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/27/jvm参数命令/" itemprop="url">Untitled</a></h1>
+                <a class="post-title-link" href="/2019/02/12/多数据源的切换/" itemprop="url">多数据源的切换</a></h1>
         
 
         <div class="post-meta">
@@ -260,8 +260,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-11-27T17:21:41+08:00">
-                2018-11-27
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-12T16:50:15+08:00">
+                2019-02-12
               </time>
             
 
@@ -467,413 +467,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/05/CAS的实现/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HanerLee's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/05/CAS的实现/" itemprop="url">CAS的实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T22:17:16+08:00">
-                2018-09-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>引子 todo<br>在前面的lamdba表达式中，是不能自增的<br>AtomicInteger<br>AtomicInteger.compareAndSet</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/29/sql的执行计划与慢查询的优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HanerLee's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/29/sql的执行计划与慢查询的优化/" itemprop="url">sql的执行计划与慢查询的优化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-29T23:07:58+08:00">
-                2018-08-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><strong>id</strong><br>select 查询的序列号，包含一组可以重复的数字，表示查询中执行sql语句的顺序。一般有三种情况：<br> 第一种：id全部相同，sql的执行顺序是由上至下；<br> 第二种：id全部不同，sql的执行顺序是根据id大的优先执行；<br> 第三种：id既存在相同，又存在不同的。先根据id大的优先执行，再根据相同id从上至下的执行。</p>
-<p> <strong>select_type</strong><br> select 查询的类型，主要是用于区别普通查询，联合查询，嵌套的复杂查询<br> simple：简单的select 查询，查询中不包含子查询或者union<br> primary：查询中若包含任何复杂的子查询，最外层查询则被标记为primary<br> subquery：在select或where 列表中包含了子查询<br> derived：在from列表中包含的子查询被标记为derived（衍生）MySQL会递归执行这些子查询，把结果放在临时表里。<br> union：若第二个select出现在union之后，则被标记为union，若union包含在from子句的子查询中，外层select将被标记为：derived<br> union result：从union表获取结果的select</p>
-<p> <strong>partitions</strong><br>表所使用的分区，如果要统计十年公司订单的金额，可以把数据分为十个区，每一年代表一个区。这样可以大大的提高查询效率。</p>
-<p> <strong>type</strong><br> 这是一个非常重要的参数，连接类型，常见的有：all , index , range , ref , eq_ref , const , system , null 八个级别。<br> 性能从最优到最差的排序：system &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; all<br> 对java程序员来说，若保证查询至少达到range级别或者最好能达到ref则算是一个优秀而又负责的程序员。<br> all：（full table scan）全表扫描无疑是最差，若是百万千万级数据量，全表扫描会非常慢。<br> index：（full index scan）全索引文件扫描比all好很多，毕竟从索引树中找数据，比从全表中找数据要快。<br> range：只检索给定范围的行，使用索引来匹配行。范围缩小了，当然比全表扫描和全索引文件扫描要快。sql语句中一般会有between，in，&gt;，&lt; 等查询。<br> ref：非唯一性索引扫描，本质上也是一种索引访问，返回所有匹配某个单独值的行。比如查询公司所有属于研发团队的同事，匹配的结果是多个并非唯一值。<br> eq_ref：唯一性索引扫描，对于每个索引键，表中有一条记录与之匹配。比如查询公司的CEO，匹配的结果只可能是一条记录，<br> const：表示通过索引一次就可以找到，const用于比较primary key 或者unique索引。因为只匹配一行数据，所以很快，若将主键至于where列表中，MySQL就能将该查询转换为一个常量。<br> system：表只有一条记录（等于系统表），这是const类型的特列，平时不会出现，了解即可</p>
-<p><strong>possible_keys</strong><br>显示查询语句可能用到的索引(一个或多个或为null)，不一定被查询实际使用。仅供参考使用。</p>
-<p><strong>keys</strong><br>显示查询语句实际使用的索引。若为null，则表示没有使用索引。</p>
-<p><strong>key_len</strong><br>显示索引中使用的字节数，可通过key_len计算查询中使用的索引长度。在不损失精确性的情况下索引长度越短越好。key_len 显示的值为索引字段的最可能长度，并非实际使用长度，即key_len是根据表定义计算而得，并不是通过表内检索出的。</p>
-<p><strong>ref</strong><br>显示索引的哪一列或常量被用于查找索引列上的值。</p>
-<p><strong>rows</strong><br>根据表统计信息及索引选用情况，大致估算出找到所需的记录所需要读取的行数，值越大越不好。</p>
-<p><strong>extra</strong><br>Using filesort： 说明MySQL会对数据使用一个外部的索引排序，而不是按照表内的索引顺序进行读取。MySQL中无法利用索引完成的排序操作称为“文件排序” 。出现这个就要立刻优化sql。<br> Using temporary： 使用了临时表保存中间结果，MySQL在对查询结果排序时使用临时表。常见于排序 order by 和 分组查询 group by。 出现这个更要立刻优化sql。<br> Using index： 表示相应的select 操作中使用了覆盖索引（Covering index），避免访问了表的数据行，效果不错！如果同时出现Using where，表明索引被用来执行索引键值的查找。如果没有同时出现Using where，表示索引用来读取数据而非执行查找动作。<br> 覆盖索引（Covering Index） ：也叫索引覆盖，就是select 的数据列只用从索引中就能够取得，不必读取数据行，MySQL可以利用索引返回select 列表中的字段，而不必根据索引再次读取数据文件。<br> Using index condition： 在5.6版本后加入的新特性，优化器会在索引存在的情况下，通过符合RANGE范围的条数 和 总数的比例来选择是使用索引还是进行全表遍历。<br> Using where： 表明使用了where 过滤<br> Using join buffer： 表明使用了连接缓存<br> impossible where： where 语句的值总是false，不可用，不能用来获取任何元素<br> distinct： 优化distinct操作，在找到第一匹配的元组后即停止找同样值的动作。</p>
-<p><strong>filtered</strong><br>一个百分比的值，和rows 列的值一起使用，可以估计出查询执行计划(QEP)中的前一个表的结果集，从而确定join操作的循环次数。小表驱动大表，减轻连接的次数。</p>
-<p><strong>如何判断失效索引</strong><br>在创建联合索引的时候，需要注意最左前缀原则。</p>
-<p><img src="explainSql.png" alt=""></p>
-<p>在使用索引查询的情况下，type会是index。借鉴阿里巴巴java开发手册，看看阿里是怎么规范索引的。<br>用于索引的最好的备选数据列是那些出现在WHERE子句、join子句、ORDER BY或GROUP BY子句中的列。<br>仅仅出现在SELECT关键字后面的输出数据列列表中的数据列不是很好的备选列</p>
-<ol>
-<li>【强制】业务上具有唯一特性的字段，即使是多个字段的组合，也必须建成唯一索引。 说明:不要以为唯一索引影响了 insert 速度，这个速度损耗可以忽略，但提高查找速度是明 显的;另外，即使在应用层做了非常完善的校验控制，只要没有唯一索引，根据墨菲定律，必 然有脏数据产生。</li>
-<li>【强制】超过三个表禁止 join。需要 join 的字段，数据类型必须绝对一致;多表关联查询时， 保证被关联的字段需要有索引。<br>说明:即使双表 join 也要注意表索引、SQL 性能。</li>
-<li>【强制】在 varchar 字段上建立索引时，必须指定索引长度，没必要对全字段建立索引，根据 实际文本区分度决定索引长度即可。 说明:索引的长度与区分度是一对矛盾体，一般对字符串类型数据，长度为 20 的索引，区分度会高达 90%以上，可以使用 count(distinct left(列名, 索引长度))/count(*)的区分度<br>来确定。</li>
-<li>【强制】页面搜索严禁左模糊或者全模糊，如果需要请走搜索引擎来解决。 说明:索引文件具有 B-Tree 的最左前缀匹配特性，如果左边的值未确定，那么无法使用此索 引。</li>
-<li>【推荐】如果有 order by 的场景，请注意利用索引的有序性。order by 最后的字段是组合 索引的一部分，并且放在索引组合顺序的最后，避免出现 file_sort 的情况，影响查询性能。 正例:where a=? and b=? order by c; 索引:a_b_c 反例:索引中有范围查找，那么索引有序性无法利用，如:WHERE a&gt;10 ORDER BY b; 索引 a_b 无法排序。</li>
-<li>【推荐】利用覆盖索引来进行查询操作，避免回表。<br>说明:如果一本书需要知道第 11 章是什么标题，会翻开第 11 章对应的那一页吗?目录浏览 一下就好，这个目录就是起到覆盖索引的作用。 正例:能够建立索引的种类:主键索引、唯一索引、普通索引，而覆盖索引是一种查询的一种 效果，用explain的结果，extra列会出现:using index。</li>
-<li>【推荐】利用延迟关联或者子查询优化超多分页场景。<br>说明:MySQL 并不是跳过 offset 行，而是取 offset+N 行，然后返回放弃前 offset 行，返回 N 行，那当 offset 特别大的时候，效率就非常的低下，要么控制返回的总页数，要么对超过 特定阈值的页数进行 SQL 改写。<br>正例:先快速定位需要获取的 id 段，然后再关联:<br>SELECT a.* FROM 表 1 a, (select id from 表 1 where 条件 LIMIT 100000,20 ) b where a.id=b.id</li>
-<li>【推荐】SQL 性能优化的目标:至少要达到 range 级别，要求是 ref 级别，如果可以是 consts 最好。<br>说明:<br>1)consts 单表中最多只有一个匹配行(主键或者唯一索引)，在优化阶段即可读取到数据。 2)ref 指的是使用普通的索引(normal index)。<br>3)range 对索引进行范围检索。<br>反例:explain 表的结果，type=index，索引物理文件全扫描，速度非常慢，这个 index 级 别比较 range 还低，与全表扫描是小巫见大巫。</li>
-<li>【推荐】建组合索引的时候，区分度最高的在最左边。<br>正例:如果 where a=? and b=? ，a 列的几乎接近于唯一值，那么只需要单建idx_a索引即可。说明:存在非等号和等号混合判断条件时，在建索引时，请把等号条件的列前置。如:where a&gt;?and b=?那么即使 a 的区分度更高，也必须把 b 放在索引的最前列。</li>
-</ol>
-<p>阿里巴巴 Java 开发手册</p>
-<ol start="10">
-<li>【推荐】防止因字段类型不同造成的隐式转换，导致索引失效。</li>
-<li>【参考】创建索引时避免有如下极端误解: 1)宁滥勿缺。认为一个查询就需要建一个索引。 2)宁缺勿滥。认为索引会消耗空间、严重拖慢更新和新增速度。3)抵制惟一索引。认为业务的惟一性一律需要在应用层通过“先查后插”方式解决。</li>
-</ol>
-<p>在这里解释一下索引长度的问题和最左匹配原则的理解<br>索引在innodb引擎中其实以索引文件的形式存在。innodb是聚簇索引，所以要求每张表都要有主键，这样数据在测盘中的存储就变得有规则，而不是一块一块分开的文件。这又涉及到b+tree的结构。innodb的索引文件其实是以b+tree的数据结构存在的，不像myisam的b-tree结构。一条数据记录为一个二元组[key, data]，key为记录的键值，对于不同数据记录，key是互不相同的；data为数据记录除key外的数据。每个节点的data是存储值的，而不是存储数据的地址。这样数据在磁盘中就是真正意义上的在一起的数据。b+tree中的索引就是主键，其他的索引中存储的date都是数据的主键的值。<br>既然是文件，那么就会有大小。我们可以把单个索引看成是只有一列数据的组合索引。，Mysql Innodb中单列索引默认最大长度767bytes也就是255字符。索引字段长度超过时，如果是unique的会提示失败；如果是非唯一的，会自动截取前255位作为索引键。当索引长度超过设定的值的时候，查询会出现回表查询的情况。</p>
-<blockquote>
-<p>参考阿里巴巴java开发手册</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/threadLocal和spring的并发/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="HanerLee's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/threadLocal和spring的并发/" itemprop="url">threadLocal和spring的并发</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-08-27T21:08:18+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="spring中的bean"><a href="#spring中的bean" class="headerlink" title="spring中的bean"></a>spring中的bean</h2><p>众所周知，spring的IOC为开发人员提供了极大的方便，其中的bean默认是单例模式。一般什么bean会被纳入spring管理呢？<br><strong>spring中的bean是无状态的。</strong> 什么是无状态，可以理解成无论是单例还是多例都不会出现线程安全问题的bean，不会因为多个线程的交替调度而破坏自身状态而导致安全问题。无状态对象包括实体类，dao,service,controller，他们本身没有自己的状态，它们只是用来执行某些操作的。而像service一般会持有数据库的connencttion，也是在方法中作为局部变量，即是存储在栈中，由线程私自持有，也不会存在线程安全的问题。<br>spring的bean是单例模式，这里的单例模式和java设计模式中的单例模式有点不同。设计模式中的单例是在整个应用中都只有一个实例，spring的单例模式指的是在一个JVM进程中只有一个实例。但是如果应用中有多个spring容器，那么就bean就会存在多个。因为Controller默认是单例的，一个HTTP请求是会被多个线程执行的，这样又会有线程安全的问题，这个时候就需要用到threadLocal了。<br>Spring根本就没有对bean的多线程安全问题做出任何保证与措施。对于每个bean的线程安全问题，根本原因是每个bean自身的设计。<strong>不要在bean中声明任何有状态的实例变量或类变量，如果必须如此，那么就使用ThreadLocal把变量变为线程私有的</strong>，如果bean的实例变量或类变量需要在多个线程之间共享，那么就只能使用synchronized、lock、CAS等这些实现线程同步的方法了。</p>
-<h2 id="ThreadLocal类"><a href="#ThreadLocal类" class="headerlink" title="ThreadLocal类"></a>ThreadLocal类</h2><p>ThreadLocal在每次实例化创建线程的时候都为每一个线程在本地变量中创建了自己独有的变量副本。每个线程都拥有了自己独立的一个变量，竞争条件被彻底消除了，那就没有必要使用 synchronized 关键字对这些线程进行同步，它们也能最大限度的使用系统资源，由CPU调度并发执行。<br>值得注意的是，threadLocal提供的是变量的浅拷贝，如果变量是一个引用类型，那么就要考虑它内部的状态是否会被改变，想要解决这个问题可以通过重写ThreadLocal的initialValue()函数来自己实现深拷贝，建议在使用ThreadLocal时一开始就重写该函数。</p>
-<h2 id="ThreadLocal存放在哪"><a href="#ThreadLocal存放在哪" class="headerlink" title="ThreadLocal存放在哪"></a>ThreadLocal存放在哪</h2><p>并不是所有被new出来的对象都是存放在堆上的。逃逸分析<br>其实不是，因为ThreadLocal实例实际上也是被其创建的类持有（更顶端应该是被线程持有）。而ThreadLocal的值其实也是被线程实例持有。它们都是位于堆上，只是通过一些技巧将可见性修改成了线程可见。<br>JVM在内存新生代Eden Space中开辟了一小块线程私有的区域，称作TLAB（Thread-local allocation buffer）。默认设定为占用Eden Space的1%。在Java程序中很多对象都是小对象且用过即丢，它们不存在线程共享也适合被快速GC，所以对于小对象通常JVM会优先分配在TLAB上，并且TLAB上的分配由于是线程私有所以没有锁开销。因此在实践中分配多个小对象的效率通常比分配一个大对象的效率要高。<br>也就是说，Java中每个线程都会有自己的缓冲区称作TLAB（Thread-local allocation buffer），每个TLAB都只有一个线程可以操作，TLAB结合bump-the-pointer技术可以实现快速的对象分配，而不需要任何的锁进行同步，也就是说，在对象分配的时候不用锁住整个堆，而只需要在自己的缓冲区分配即可。</p>
-<p>下面跟踪一下threadLocal类的几个方法：get()、set()、remove()、initialValue()。初始化方法返回线程局部变量的初始值，为了子类覆盖而设计的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the value in the current thread's copy of this</span></span><br><span class="line"><span class="comment">     * thread-local variable.  If the variable has no value for the</span></span><br><span class="line"><span class="comment">     * current thread, it is first initialized to the value returned</span></span><br><span class="line"><span class="comment">     * by an invocation of the &#123;<span class="doctag">@link</span> #initialValue&#125; method.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> the current thread's value of this thread-local</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Thread t = Thread.currentThread();</span><br><span class="line">        ThreadLocalMap map = getMap(t);</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ThreadLocalMap.Entry e = map.getEntry(<span class="keyword">this</span>);</span><br><span class="line">            <span class="keyword">if</span> (e != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</span><br><span class="line">                T result = (T)e.value;</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> setInitialValue();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Sets the current thread's copy of this thread-local variable</span></span><br><span class="line"><span class="comment">     * to the specified value.  Most subclasses will have no need to</span></span><br><span class="line"><span class="comment">     * override this method, relying solely on the &#123;<span class="doctag">@link</span> #initialValue&#125;</span></span><br><span class="line"><span class="comment">     * method to set the values of thread-locals.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> value the value to be stored in the current thread's copy of</span></span><br><span class="line"><span class="comment">     *        this thread-local.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(T value)</span> </span>&#123;</span><br><span class="line">        Thread t = Thread.currentThread();</span><br><span class="line">        ThreadLocalMap map = getMap(t);</span><br><span class="line">        <span class="keyword">if</span> (map != <span class="keyword">null</span>)</span><br><span class="line">            map.set(<span class="keyword">this</span>, value);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            createMap(t, value);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Removes the current thread's value for this thread-local</span></span><br><span class="line"><span class="comment">     * variable.  If this thread-local variable is subsequently</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@linkplain</span> #get read&#125; by the current thread, its value will be</span></span><br><span class="line"><span class="comment">     * reinitialized by invoking its &#123;<span class="doctag">@link</span> #initialValue&#125; method,</span></span><br><span class="line"><span class="comment">     * unless its value is &#123;<span class="doctag">@linkplain</span> #set set&#125; by the current thread</span></span><br><span class="line"><span class="comment">     * in the interim.  This may result in multiple invocations of the</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@code</span> initialValue&#125; method in the current thread.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.5</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">         ThreadLocalMap m = getMap(Thread.currentThread());</span><br><span class="line">         <span class="keyword">if</span> (m != <span class="keyword">null</span>)</span><br><span class="line">             m.remove(<span class="keyword">this</span>);</span><br><span class="line">     &#125;</span><br></pre></td></tr></table></figure></p>
-<p>写一个实例测试一下threadLocal<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SequenceNumber</span> </span>&#123;  </span><br><span class="line">       </span><br><span class="line">        <span class="comment">//通过匿名内部类覆盖ThreadLocal的initialValue()方法，指定初始值  </span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> ThreadLocal&lt;Integer&gt; seqNum = <span class="keyword">new</span> ThreadLocal&lt;Integer&gt;()&#123;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> Integer <span class="title">initialValue</span><span class="params">()</span></span>&#123;  </span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;;  </span><br><span class="line">       </span><br><span class="line">        <span class="comment">//获取下一个序列值  </span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNextNum</span><span class="params">()</span></span>&#123;  </span><br><span class="line">        seqNum.set(seqNum.get()+<span class="number">1</span>);  </span><br><span class="line">        <span class="keyword">return</span> seqNum.get();  </span><br><span class="line">    &#125;  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[ ] args)</span>   </span></span><br><span class="line"><span class="function">    </span>&#123;  </span><br><span class="line">          SequenceNumber sn = <span class="keyword">new</span> SequenceNumber();  </span><br><span class="line">           </span><br><span class="line">         <span class="comment">//3个线程共享sn，各自产生序列号  </span></span><br><span class="line">         TestClient t1 = <span class="keyword">new</span> TestClient(sn);    </span><br><span class="line">         TestClient t2 = <span class="keyword">new</span> TestClient(sn);  </span><br><span class="line">         TestClient t3 = <span class="keyword">new</span> TestClient(sn);  </span><br><span class="line">         t1.start();  </span><br><span class="line">         t2.start();  </span><br><span class="line">         t3.start();  </span><br><span class="line">    &#125;     </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TestClient</span> <span class="keyword">extends</span> <span class="title">Thread</span>  </span></span><br><span class="line"><span class="class">    </span>&#123;  </span><br><span class="line">        <span class="keyword">private</span> SequenceNumber sn;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">TestClient</span><span class="params">(SequenceNumber sn)</span> </span>&#123;  </span><br><span class="line">            <span class="keyword">this</span>.sn = sn;  </span><br><span class="line">        &#125;  </span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span>  </span></span><br><span class="line"><span class="function">        </span>&#123;  </span><br><span class="line">                        <span class="comment">//④每个线程打出3个序列值  </span></span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;  </span><br><span class="line">            System.out.println(<span class="string">"thread["</span>+Thread.currentThread().getName()+  </span><br><span class="line"><span class="string">"] sn["</span>+sn.getNextNum()+<span class="string">"]"</span>);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最后的结果：<br>thread[Thread-0] sn[1]<br>thread[Thread-0] sn[2]<br>thread[Thread-0] sn[3]<br>thread[Thread-1] sn[1]<br>thread[Thread-1] sn[2]<br>thread[Thread-2] sn[1]<br>thread[Thread-1] sn[3]<br>thread[Thread-2] sn[2]<br>thread[Thread-2] sn[3]<br>由此可以看出使用了threadLocal的变量在多线程环境下是安全的。</p>
-<h2 id="ThreadLocal中的内存泄漏"><a href="#ThreadLocal中的内存泄漏" class="headerlink" title="ThreadLocal中的内存泄漏"></a>ThreadLocal中的内存泄漏</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Entry</span> <span class="keyword">extends</span> <span class="title">WeakReference</span>&lt;<span class="title">ThreadLocal</span>&lt;?&gt;&gt; </span>&#123;</span><br><span class="line">            <span class="comment">/** The value associated with this ThreadLocal. */</span></span><br><span class="line">            Object value;</span><br><span class="line"></span><br><span class="line">            Entry(ThreadLocal&lt;?&gt; k, Object v) &#123;</span><br><span class="line">                <span class="keyword">super</span>(k);</span><br><span class="line">                value = v;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-<p>threadLocal内部是靠threadLocalMap维护的，由源码可以看到，<br>我们要考虑一种会发生内存泄漏的情况，如果ThreadLocal被设置为null后，而且没有任何强引用指向它，根据垃圾回收的可达性分析算法，ThreadLocal将会被回收。这样一来，ThreadLocalMap中就会含有key为null的Entry，而且ThreadLocalMap是在Thread中的，只要线程迟迟不结束，这些无法访问到的value会形成内存泄漏。</p>
-<ul>
-<li>为了安全地使用ThreadLocal，必须要像每次使用完锁就解锁一样，在每次使用完ThreadLocal后都要调用remove()来清理无用的Entry。 </li>
-</ul>
-<h2 id="Spring-mvc-synchronized-应避免在service中使用"><a href="#Spring-mvc-synchronized-应避免在service中使用" class="headerlink" title="Spring mvc synchronized 应避免在service中使用"></a>Spring mvc synchronized 应避免在service中使用</h2><p>synchronized用在service中，而spring mvc中的事物一般就是控制在service层(事物没配置在service层就另当别论)。由于Spring事务是通过AOP实现的，所以在s方法执行之前会有开启事务，之后会有提交事务逻辑。而synchronized代码块执行是在事务之内执行的，可以推断在synchronized代码块执行完时，事务还未提交，其他线程进入synchronized代码块后，读取的数据不是最新的。可以考虑将synchronized加在controller上，使synchronized锁的范围大于事务控制的范围。</p>
-<blockquote>
-<p>参考作者为SylvanasSun(<a href="mailto:sylvanas.sun@gmail.com" target="_blank" rel="noopener">sylvanas.sun@gmail.com</a>)，首发于SylvanasSun’s Blog。<br>原文链接：<a href="https://sylvanassun.github.io/2017/11/06/2017-11-06-spring_and_thread-safe/" target="_blank" rel="noopener">https://sylvanassun.github.io/2017/11/06/2017-11-06-spring_and_thread-safe/</a></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/23/java中的锁/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -945,7 +538,29 @@
       
         
           
-            
+            <ul>
+<li>公平锁/非公平锁</li>
+<li>可重入锁</li>
+<li>独享锁/共享锁</li>
+<li>互斥锁/读写锁</li>
+<li>乐观锁/悲观锁</li>
+<li>分段锁</li>
+<li>偏向锁/轻量级锁/重量级锁</li>
+<li>自旋锁</li>
+</ul>
+<h2 id="公平锁-非公平锁"><a href="#公平锁-非公平锁" class="headerlink" title="公平锁/非公平锁"></a>公平锁/非公平锁</h2><p>公平锁是指多个线程按照申请锁的顺序来获取锁。<br>非公平锁是指多个线程获取锁的顺序并不是按照申请锁的顺序，有可能后申请的线程比先申请的线程优先获取锁。有可能，会造成优先级反转或者饥饿现象。<br>对于ReentrantLock而言，通过构造函数指定该锁是否是公平锁，默认是非公平锁。非公平锁的优点在于吞吐量比公平锁大。对于Synchronized而言，也是一种非公平锁。</p>
+<h2 id="可重入锁"><a href="#可重入锁" class="headerlink" title="可重入锁"></a>可重入锁</h2><p>可重入锁又名递归锁，是指在同一个线程在外层方法获取锁的时候，在进入内层方法会自动获取锁。说的有点抽象，下面会有一个代码的示例。<br>对于Java ReentrantLock而言, 他的名字就可以看出是一个可重入锁，其名字是Re entrant Lock（重新进入锁）。对于Synchronized而言,也是一个可重入锁。可重入锁的一个好处是可一定程度避免死锁。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">setA</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">    setB();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">setB</span><span class="params">()</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码就是一个可重入锁的一个特点，如果不是可重入锁的话，setB可能不会被当前线程执行，可能造成死锁。</p>
+<h2 id="独享锁-共享锁"><a href="#独享锁-共享锁" class="headerlink" title="独享锁/共享锁"></a>独享锁/共享锁</h2><p>独享锁是指该锁一次只能被一个线程所持有。<br>共享锁是指该锁可被多个线程所持有。</p>
+<p>对于Java ReentrantLock而言，其是独享锁。但是对于Lock的另一个实现类ReadWriteLock，其读锁是共享锁，其写锁是独享锁。<br>读锁的共享锁可保证并发读是非常高效的，读写，写读 ，写写的过程是互斥的。<br>独享锁与共享锁也是通过AQS来实现的，通过实现不同的方法，来实现独享或者共享。<br>对于Synchronized而言，当然是独享锁。</p>
+<h2 id="互斥锁-读写锁"><a href="#互斥锁-读写锁" class="headerlink" title="互斥锁/读写锁"></a>互斥锁/读写锁</h2><p>上面讲的独享锁/共享锁就是一种广义的说法，互斥锁/读写锁就是具体的实现。<br>互斥锁在Java中的具体实现就是ReentrantLock<br>读写锁在Java中的具体实现就是ReadWriteLock</p>
+<h2 id="乐观锁-悲观锁"><a href="#乐观锁-悲观锁" class="headerlink" title="乐观锁/悲观锁"></a>乐观锁/悲观锁</h2><p>乐观锁与悲观锁不是指具体的什么类型的锁，而是指看待并发同步的角度。<br>悲观锁认为对于同一个数据的并发操作，一定是会发生修改的，哪怕没有修改，也会认为修改。因此对于同一个数据的并发操作，悲观锁采取加锁的形式。悲观的认为，不加锁的并发操作一定会出问题。<br>乐观锁则认为对于同一个数据的并发操作，是不会发生修改的。在更新数据的时候，会采用尝试更新，不断重新的方式更新数据。乐观的认为，不加锁的并发操作是没有事情的。</p>
+<p>从上面的描述我们可以看出，悲观锁适合写操作非常多的场景，乐观锁适合读操作非常多的场景，不加锁会带来大量的性能提升。<br>悲观锁在Java中的使用，就是利用各种锁。<br>乐观锁在Java中的使用，是无锁编程，常常采用的是CAS算法，典型的例子就是原子类，通过CAS自旋实现原子操作的更新。</p>
+<h2 id="分段锁"><a href="#分段锁" class="headerlink" title="分段锁"></a>分段锁</h2><p>分段锁其实是一种锁的设计，并不是具体的一种锁，对于ConcurrentHashMap而言，其并发的实现就是通过分段锁的形式来实现高效的并发操作。<br>我们以ConcurrentHashMap来说一下分段锁的含义以及设计思想，ConcurrentHashMap中的分段锁称为Segment，它即类似于HashMap（JDK7与JDK8中HashMap的实现）的结构，即内部拥有一个Entry数组，数组中的每个元素又是一个链表；同时又是一个ReentrantLock（Segment继承了ReentrantLock)。<br>当需要put元素的时候，并不是对整个hashmap进行加锁，而是先通过hashcode来知道他要放在那一个分段中，然后对这个分段进行加锁，所以当多线程put的时候，只要不是放在一个分段中，就实现了真正的并行的插入。<br>但是，在统计size的时候，可就是获取hashmap全局信息的时候，就需要获取所有的分段锁才能统计。<br>分段锁的设计目的是细化锁的粒度，当操作不需要更新整个数组的时候，就仅仅针对数组中的一项进行加锁操作。</p>
+<h2 id="偏向锁-轻量级锁-重量级锁"><a href="#偏向锁-轻量级锁-重量级锁" class="headerlink" title="偏向锁/轻量级锁/重量级锁"></a>偏向锁/轻量级锁/重量级锁</h2><p>这三种锁是指锁的状态，并且是针对Synchronized。在Java 5通过引入锁升级的机制来实现高效Synchronized。这三种锁的状态是通过对象监视器在对象头中的字段来表明的。<br>偏向锁是指一段同步代码一直被一个线程所访问，那么该线程会自动获取锁。降低获取锁的代价。<br>轻量级锁是指当锁是偏向锁的时候，被另一个线程所访问，偏向锁就会升级为轻量级锁，其他线程会通过自旋的形式尝试获取锁，不会阻塞，提高性能。<br>重量级锁是指当锁为轻量级锁的时候，另一个线程虽然是自旋，但自旋不会一直持续下去，当自旋一定次数的时候，还没有获取到锁，就会进入阻塞，该锁膨胀为重量级锁。重量级锁会让其他申请的线程进入阻塞，性能降低。</p>
+<h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>在Java中，自旋锁是指尝试获取锁的线程不会立即阻塞，而是采用循环的方式去尝试获取锁，这样的好处是减少线程上下文切换的消耗，缺点是循环会消耗CPU。</p>
+
           
         
       
@@ -1510,6 +1125,397 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/14/搭建https服务以及https介绍/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanerLee's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/14/搭建https服务以及https介绍/" itemprop="url">搭建https服务以及https介绍</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-14T21:31:28+08:00">
+                2018-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>开发微信小程序，图片资源可以是http,接口必须要http请求。把公司服务器升级成https。之前也对https有过了解，现在更深一步的了解https。</p>
+<h2 id="非对称性加密和对称性加密"><a href="#非对称性加密和对称性加密" class="headerlink" title="非对称性加密和对称性加密"></a>非对称性加密和对称性加密</h2><p>当一个客户端和服务端通信的时候，发送明文是不安全的。这时候可以约定好一个密钥同时用作信息的加密和解密，这就是对称性加(symmetric cryptography)。但是一个服务端会和多个客户端通信，如果又一个客户端把密钥泄密了，这时候整个网站都不安全了。这时候就需要非对称性加密（asymmetric cryptography）。<a href="https://zh.wikipedia.org/zh-cn/RSA%E5%8A%A0%E5%AF%86%E6%BC%94%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">RSA</a>算法一直是最广为使用的”非对称加密算法”。客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密。公钥负责加密，私钥负责解密。私钥负责签名，公钥负责验证。</p>
+<ul>
+<li>非对称性加密过程<br>SSL协议基本过程是客户端向服务器端索要并验证公钥，双方协商生成”对话密钥”，双方采用”对话密钥”进行加密通信。索要并验证公钥，生成对话密钥被称为握手阶段。</li>
+</ul>
+<ol>
+<li>客户端发起HTTPS请求，访问服务器的443端口。</li>
+<li>服务器返回证书的公钥，其中还包含了一些信息，如证书的颁发机构，过期时间等。</li>
+<li>客户端解析证书这部分工作是由客户端的SSL/TLS来完成的，首先会验证公钥是否有效，比如颁发机构，过期时间等等，如果发现异常，则会弹出一个警示框，提示证书存在的问题。如果证书没有问题，那么就生成一个随机值。然后用证书（也就是公钥）对这个随机值进行加密。</li>
+<li>传送加密信息：这部分传送的是用证书加密后的随机值，目的是让服务端得到这个随机值，以后客户端和服务端的通信就可以通过这个随机值来进行加密解密了。</li>
+<li>服务端解密信息：服务端用私钥解密后，得到了客户端传过来的随机值，然后把内容通过该随机值进行对称加密，将信息和私钥通过某种算法混合在一起，这样除非知道私钥，不然无法获取内容，而正好客户端和服务端都知道这个私钥，所以只要加密算法够彪悍，私钥够复杂，数据就够安全。</li>
+<li>传输加密后的信息 这部分信息就是服务端用私钥加密后的信息，可以在客户端用随机值解密还原。</li>
+<li>客户端解密信息 客户端用之前生产的私钥解密服务端传过来的信息，于是获取了解密后的内容。整个过程第三方即使监听到了数据，也束手无策。</li>
+</ol>
+<h2 id="SSL证书和https的搭建"><a href="#SSL证书和https的搭建" class="headerlink" title="SSL证书和https的搭建"></a>SSL证书和https的搭建</h2><p>https协议是基于SSL协议的，SSL证书是数字证书的一种，遵守SSL协议，由受信任的数字证书颁发机构CA。自己其实也是可以制作SSL证书的。可以通过openssl命令生成证书。自己尝试签发一个免费证书，然后在需要使用证书的nginx配置文件的server节点里加入以下配置就可以了。</p>
+<p>首先执行如下命令生成一个key<br>openssl genrsa -des3 -out ssl.key 1024<br>然后他会要求你输入这个key文件的密码。不推荐输入。因为以后要给nginx使用。每次reload nginx配置时候都要你验证这个PAM密码的。<br>由于生成时候必须输入密码。你可以输入后再删掉。</p>
+<p>mv ssl.key xxx.key<br>openssl rsa -in xxx.key -out ssl.key<br>rm xxx.key<br>然后根据这个key文件生成证书请求文件<br>openssl req -new -key ssl.key -out ssl.csr<br>后面需要填写个人信息，看着填就可以了，有的不是必填的enter跳古就可以了。<br>最后根据这2个文件生成crt证书文件<br>openssl x509 -req -days 365 -in ssl.csr -signkey ssl.key -out ssl.crt<br>在需要使用证书的nginx配置文件的server节点里加入以下配置就可以了。<br>特别的：下面的location系列配置是为了申请阿里云盾的ssl证书，为了文件验证方式而配置的。是为了在指定url下，可以访问到指定的文件以供验证。自己签发的ssl证书是在浏览器上访问会显示不安全，自己颁发的证书需要客户端验证通过，才可以继续访问。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       443    ssl;</span><br><span class="line">        server_name  app.datasoftware.com.cn;</span><br><span class="line">        root html;</span><br><span class="line">        index index.html index.htm;</span><br><span class="line"></span><br><span class="line">        ssl_certificate      ssl/aliServer.pem;</span><br><span class="line">        ssl_certificate_key  ssl/aliServer.key;</span><br><span class="line"></span><br><span class="line">        ssl_session_timeout  5m;</span><br><span class="line">		ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">		ssl_ciphers	ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">        ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">			# proxy_pass	http://www.datasoftware.com.cn/about.html;</span><br><span class="line">        &#125;</span><br><span class="line">        location /file/ &#123;</span><br><span class="line">            alias   /home/hadoop/wangwei/upload_manager/;</span><br><span class="line">        &#125;</span><br><span class="line">        location /.well-known/ &#123;</span><br><span class="line">            alias   /home/hadoop/wangwei/upload_manager/fileauth/.well-known/;</span><br><span class="line">        &#125;</span><br><span class="line">		location /zhzs &#123;</span><br><span class="line">			proxy_pass	http://localhost:7007/zhzs;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时</p>
+<ul>
+<li>每一个公钥都对应一个私钥。</li>
+<li></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/18/CAS的实现/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanerLee's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/18/CAS的实现/" itemprop="url">CAS的实现</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-03-18T14:17:16+08:00">
+                2018-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>引子 todo<br>在前面的lamdba表达式中，是不能自增的<br>AtomicInteger<br>AtomicInteger.compareAndSet就是一个CAS操作。CAS：</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/02/18/jvm参数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="HanerLee's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/18/jvm参数/" itemprop="url">jvm参数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-18T10:28:04+08:00">
+                2018-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ul>
+<li>参数说明<br>-Xmx3550m：设置JVM最大堆内存为3550M。<br>-Xms3550m：设置JVM初始堆内存为3550M。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。<br>-Xss128k：设置每个线程的栈大小。JDK5.0以后每个线程栈大小为1M，之前每个线程栈大小为256K。应当根据应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。需要注意的是：当这个值被设置的较大（例如&gt;2MB）时将会在很大程度上降低系统的性能。<br>-Xmn2g：设置年轻代大小为2G。在整个堆内存大小确定的情况下，增大年轻代将会减小年老代，反之亦然。此值关系到JVM垃圾回收，对系统性能影响较大，官方推荐配置为整个堆大小的3/8。<br>-XX:NewSize=1024m：设置年轻代初始值为1024M。<br>-XX:MaxNewSize=1024m：设置年轻代最大值为1024M。<br>-XX:PermSize=256m：设置持久代初始值为256M。<br>-XX:MaxPermSize=256m：设置持久代最大值为256M。<br>-XX:NewRatio=4：设置年轻代（包括1个Eden和2个Survivor区）与年老代的比值。表示年轻代比年老代为1:4。<br>-XX:SurvivorRatio=4：设置年轻代中Eden区与Survivor区的比值。表示2个Survivor区（JVM堆内存年轻代中默认有2个大小相等的Survivor区）与1个Eden区的比值为2:4，即1个Survivor区占整个年轻代大小的1/6。<br>-XX:MaxTenuringThreshold=7：表示一个对象如果在Survivor区（救助空间）移动了7次还没有被垃圾回收就进入年老代。如果设置为0的话，则年轻代对象不经过Survivor区，直接进入年老代，对于需要大量常驻内存的应用，这样做可以提高效率。如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象在年轻代存活时间，增加对象在年轻代被垃圾回收的概率，减少Full GC的频率，这样做可以在某种程度上提高服务稳定性。</li>
+<li><p>疑问解答<br>-Xmn，-XX:NewSize/-XX:MaxNewSize，-XX:NewRatio 3组参数都可以影响年轻代的大小，混合使用的情况下，优先级是什么？<br>如下：<br>高优先级：-XX:NewSize/-XX:MaxNewSize<br>中优先级：-Xmn（默认等效 -Xmn=-XX:NewSize=-XX:MaxNewSize=?）<br>低优先级：-XX:NewRatio<br>推荐使用-Xmn参数，原因是这个参数简洁，相当于一次设定 NewSize/MaxNewSIze，而且两者相等，适用于生产环境。-Xmn 配合 -Xms/-Xmx，即可将堆内存布局完成。<br>-Xmn参数是在JDK 1.4 开始支持。</p>
+</li>
+<li><p>垃圾回收器选择<br>JVM给出了3种选择：串行收集器、并行收集器、并发收集器。串行收集器只适用于小数据量的情况，所以生产环境的选择主要是并行收集器和并发收集器。<br>默认情况下JDK5.0以前都是使用串行收集器，如果想使用其他收集器需要在启动时加入相应参数。JDK5.0以后，JVM会根据当前系统配置进行智能判断。<br>串行收集器<br>-XX:+UseSerialGC：设置串行收集器。<br>并行收集器（吞吐量优先）<br>-XX:+UseParallelGC：设置为并行收集器。此配置仅对年轻代有效。即年轻代使用并行收集，而年老代仍使用串行收集。<br>-XX:ParallelGCThreads=20：配置并行收集器的线程数，即：同时有多少个线程一起进行垃圾回收。此值建议配置与CPU数目相等。<br>-XX:+UseParallelOldGC：配置年老代垃圾收集方式为并行收集。JDK6.0开始支持对年老代并行收集。<br>-XX:MaxGCPauseMillis=100：设置每次年轻代垃圾回收的最长时间（单位毫秒）。如果无法满足此时间，JVM会自动调整年轻代大小，以满足此时间。<br>-XX:+UseAdaptiveSizePolicy：设置此选项后，并行收集器会自动调整年轻代Eden区大小和Survivor区大小的比例，以达成目标系统规定的最低响应时间或者收集频率等指标。此参数建议在使用并行收集器时，一直打开。<br>并发收集器（响应时间优先）<br>-XX:+UseConcMarkSweepGC：即CMS收集，设置年老代为并发收集。CMS收集是JDK1.4后期版本开始引入的新GC算法。它的主要适合场景是对响应时间的重要性需求大于对吞吐量的需求，能够承受垃圾回收线程和应用线程共享CPU资源，并且应用中存在比较多的长生命周期对象。CMS收集的目标是尽量减少应用的暂停时间，减少Full GC发生的几率，利用和应用程序线程并发的垃圾回收线程来标记清除年老代内存。<br>-XX:+UseParNewGC：设置年轻代为并发收集。可与CMS收集同时使用。JDK5.0以上，JVM会根据系统配置自行设置，所以无需再设置此参数。<br>-XX:CMSFullGCsBeforeCompaction=0：由于并发收集器不对内存空间进行压缩和整理，所以运行一段时间并行收集以后会产生内存碎片，内存使用效率降低。此参数设置运行0次Full GC后对内存空间进行压缩和整理，即每次Full GC后立刻开始压缩和整理内存。<br>-XX:+UseCMSCompactAtFullCollection：打开内存空间的压缩和整理，在Full GC后执行。可能会影响性能，但可以消除内存碎片。<br>-XX:+CMSIncrementalMode：设置为增量收集模式。一般适用于单CPU情况。<br>-XX:CMSInitiatingOccupancyFraction=70：表示年老代内存空间使用到70%时就开始执行CMS收集，以确保年老代有足够的空间接纳来自年轻代的对象，避免Full GC的发生。<br>其它垃圾回收参数<br>-XX:+ScavengeBeforeFullGC：年轻代GC优于Full GC执行。<br>-XX:-DisableExplicitGC：不响应 System.gc() 代码。<br>-XX:+UseThreadPriorities：启用本地线程优先级API。即使 java.lang.Thread.setPriority() 生效，不启用则无效。<br>-XX:SoftRefLRUPolicyMSPerMB=0：软引用对象在最后一次被访问后能存活0毫秒（JVM默认为1000毫秒）。<br>-XX:TargetSurvivorRatio=90：允许90%的Survivor区被占用（JVM默认为50%）。提高对于Survivor区的使用率。</p>
+</li>
+<li><p>辅助信息参数设置<br>-XX:-CITime：打印消耗在JIT编译的时间。<br>-XX:ErrorFile=./hs_err_pid.log：保存错误日志或数据到指定文件中。<br>-XX:HeapDumpPath=./java_pid.hprof：指定Dump堆内存时的路径。<br>-XX:-HeapDumpOnOutOfMemoryError：当首次遭遇内存溢出时Dump出此时的堆内存。<br>-XX:OnError=”;”：出现致命ERROR后运行自定义命令。<br>-XX:OnOutOfMemoryError=”;”：当首次遭遇内存溢出时执行自定义命令。<br>-XX:-PrintClassHistogram：按下 Ctrl+Break 后打印堆内存中类实例的柱状信息，同JDK的 jmap -histo 命令。<br>-XX:-PrintConcurrentLocks：按下 Ctrl+Break 后打印线程栈中并发锁的相关信息，同JDK的 jstack -l 命令。<br>-XX:-PrintCompilation：当一个方法被编译时打印相关信息。<br>-XX:-PrintGC：每次GC时打印相关信息。<br>-XX:-PrintGCDetails：每次GC时打印详细信息。<br>-XX:-PrintGCTimeStamps：打印每次GC的时间戳。<br>-XX:-TraceClassLoading：跟踪类的加载信息。<br>-XX:-TraceClassLoadingPreorder：跟踪被引用到的所有类的加载信息。<br>-XX:-TraceClassResolution：跟踪常量池。<br>-XX:-TraceClassUnloading：跟踪类的卸载信息。<br>关于参数名称等<br>标准参数（-），所有JVM都必须支持这些参数的功能，而且向后兼容；例如：<br>-client——设置JVM使用Client模式，特点是启动速度比较快，但运行时性能和内存管理效率不高，通常用于客户端应用程序或开发调试；在32位环境下直接运行Java程序默认启用该模式。<br>-server——设置JVM使Server模式，特点是启动速度比较慢，但运行时性能和内存管理效率很高，适用于生产环境。在具有64位能力的JDK环境下默认启用该模式。<br>非标准参数（-X），默认JVM实现这些参数的功能，但是并不保证所有JVM实现都满足，且不保证向后兼容；<br>非稳定参数（-XX），此类参数各个JVM实现会有所不同，将来可能会不被支持，需要慎重使用；</p>
+</li>
+</ul>
+<p>JVM服务参数调优实战<br>大型网站服务器案例<br>承受海量访问的动态Web应用<br>服务器配置：8 CPU, 8G MEM, JDK 1.6.X<br>参数方案：<br>-server -Xmx3550m -Xms3550m -Xmn1256m -Xss128k -XX:SurvivorRatio=6 -XX:MaxPermSize=256m -XX:ParallelGCThreads=8 -XX:MaxTenuringThreshold=0 -XX:+UseConcMarkSweepGC<br>调优说明：<br>-Xmx 与 -Xms 相同以避免JVM反复重新申请内存。-Xmx 的大小约等于系统内存大小的一半，即充分利用系统资源，又给予系统安全运行的空间。<br>-Xmn1256m 设置年轻代大小为1256MB。此值对系统性能影响较大，Sun官方推荐配置年轻代大小为整个堆的3/8。<br>-Xss128k 设置较小的线程栈以支持创建更多的线程，支持海量访问，并提升系统性能。<br>-XX:SurvivorRatio=6 设置年轻代中Eden区与Survivor区的比值。系统默认是8，根据经验设置为6，则2个Survivor区与1个Eden区的比值为2:6，一个Survivor区占整个年轻代的1/8。<br>-XX:ParallelGCThreads=8 配置并行收集器的线程数，即同时8个线程一起进行垃圾回收。此值一般配置为与CPU数目相等。<br>-XX:MaxTenuringThreshold=0 设置垃圾最大年龄（在年轻代的存活次数）。如果设置为0的话，则年轻代对象不经过Survivor区直接进入年老代。对于年老代比较多的应用，可以提高效率；如果将此值设置为一个较大值，则年轻代对象会在Survivor区进行多次复制，这样可以增加对象再年轻代的存活时间，增加在年轻代即被回收的概率。根据被海量访问的动态Web应用之特点，其内存要么被缓存起来以减少直接访问DB，要么被快速回收以支持高并发海量请求，因此其内存对象在年轻代存活多次意义不大，可以直接进入年老代，根据实际应用效果，在这里设置此值为0。<br>-XX:+UseConcMarkSweepGC 设置年老代为并发收集。CMS（ConcMarkSweepGC）收集的目标是尽量减少应用的暂停时间，减少Full GC发生的几率，利用和应用程序线程并发的垃圾回收线程来标记清除年老代内存，适用于应用中存在比较多的长生命周期对象的情况。<br>内部集成构建服务器案例<br>高性能数据处理的工具应用<br>服务器配置：1 CPU, 4G MEM, JDK 1.6.X<br>参数方案：<br>-server -XX:PermSize=196m -XX:MaxPermSize=196m -Xmn320m -Xms768m -Xmx1024m<br>调优说明：<br>-XX:PermSize=196m -XX:MaxPermSize=196m 根据集成构建的特点，大规模的系统编译可能需要加载大量的Java类到内存中，所以预先分配好大量的持久代内存是高效和必要的。<br>-Xmn320m 遵循年轻代大小为整个堆的3/8原则。<br>-Xms768m -Xmx1024m 根据系统大致能够承受的堆内存大小设置即可。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -1560,7 +1566,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
